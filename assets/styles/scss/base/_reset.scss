@@ -1,0 +1,36 @@
+/* _reset.scss
+   Reset CSS minimal pour OhMyFood
+   Compatible avec Figma (line-height auto)
+*/
+
+/* 1. Reset global des marges et paddings, et box-sizing */
+*,
+*::before,
+*::after {
+  margin: 0;       // Supprime les marges par défaut
+  padding: 0;      // Supprime les paddings par défaut
+  box-sizing: border-box; // Inclut le padding dans la largeur/hauteur
+}
+
+/* 2. Listes */
+ul, ol {
+  list-style: none; // Supprime les puces/nombres par défaut
+}
+
+/* 3. Images et vidéos */
+img, video {
+  max-width: 100%; // Empêche le débordement
+  display: block;  // Évite les espaces blancs sous les images
+}
+
+/* 4. Liens */
+a {
+  text-decoration: none; // Supprime le soulignement par défaut
+  color: inherit;        // Hérite de la couleur du texte parent
+}
+
+/* 5. Formulaires */
+input, button, textarea, select {
+  font-family: inherit; // Hérite de la police définie dans le body
+  font-size: inherit;   // Hérite de la taille de police
+}
