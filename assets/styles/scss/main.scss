@@ -1,13 +1,22 @@
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
-@import 'base/reset';
-@import 'base/typography';
-@import 'base/base';
-@import 'layout/header';
-@import 'layout/footer';
-@import 'layout/container';
-@import 'components/buttons';
-@import 'components/cards';
-@import 'pages/home';
-@import 'pages/restaurant';
-@import 'utils/animations';
+// main.scss
+// Point d'entrée SCSS, orchestre tous les imports
+// Ordre d'import critique (abstracts → base → layout → components → pages)
+// Compile vers : public/css/style.css
+// Ne contient AUCUN style, uniquement des @use/@import
+
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+@use 'abstracts/typography';
+@use 'base/reset';
+@use 'base/base';
+@use 'layouts/header';
+@use 'layouts/location';
+@use 'layouts/hero';
+@use 'layouts/footer';
+@use 'layouts/container';
+@use 'components/buttons';
+@use 'components/cards';
+@use 'pages/home';
+@use 'pages/restaurant';
+@use 'utils/animations';
+

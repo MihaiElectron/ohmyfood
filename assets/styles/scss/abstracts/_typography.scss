@@ -1,0 +1,13 @@
+// abstracts/_typography.scss
+// Design system typographique du projet Ohmyfood
+// Mixins sémantiques basés sur la maquette (heading-1, body-text...)
+// Utilise le mixin typography() de _mixins.scss
+// Utilisé par : components/, pages/
+
+@use 'variables';
+
+@mixin typography($size, $weight, $line-height: 1) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line-height;
+  }

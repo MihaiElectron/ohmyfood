@@ -1,0 +1,32 @@
+// layout/_header.scss
+// En-tête site (logo + navigation si applicable)
+// Structure BEM : .header
+// Dépend de : _variables.scss, _mixins.scss
+// Présent sur toutes les pages
+
+@use '../abstracts/mixins';
+@use '../abstracts/variables';
+
+.header {
+    @include mixins.flex($align:flex-end);   
+    background-color: variables.$color-white;
+    height: 63px;
+
+    &__logo {
+        @include mixins.flex();
+        width: 162px;
+        height: 44px;
+       
+    }
+
+    @media screen and (min-width: 1024px) {
+        @include mixins.flex();
+        height: 96px;
+
+        &__logo {
+            width: 200px;
+            height: 34.2px;
+        }
+      }
+
+}

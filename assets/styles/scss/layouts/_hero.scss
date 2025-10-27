@@ -1,0 +1,25 @@
+// Jamais de valeurs en dur dans le code
+// Les variables centralisent tout dans
+
+@use '../abstracts/variables';
+@use '../abstracts/typography'; 
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    &__title {
+        text-align: center;
+        padding-top: 39px;
+        max-width: 80%;
+        font-size: variables.$font-size-section-title;
+        font-weight: variables.$font-weight-bold;
+    }
+
+    &__subtitle {
+        text-align: center;
+        @include typography.typography(variables.$font-size-paragraph, variables.$font-weight-light);
+        color: variables.$color-grey;
+    }
+}

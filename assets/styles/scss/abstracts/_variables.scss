@@ -1,3 +1,15 @@
+// abstracts/_variables.scss
+// Centralise toutes les valeurs du design system (couleurs, tailles, espacements...)
+// Seul fichier où les valeurs brutes (px, %, #hex) sont autorisées
+// Importé en premier dans main.scss
+// Utilisé par : tous les fichiers du projet
+
+
+// Font Family
+
+$font-family-primary: 'Roboto', sans-serif;
+$font-family-secondary: 'Shrikhand', sans-serif;
+
 // Tailles de texte
 
 $font-size-section-title: 24px;
@@ -8,11 +20,28 @@ $font-size-plate-price: 15px;
 $font-size-plate-title: 18px;
 $font-size-plate-details: 15px;
 
+// Font weight
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+
+
 // Couleurs principales
 
+// Colors
 $color-primary: #9356DC;
 $color-secondary: #FF79DA;
 $color-tertiary: #99E2D0;
+$color-black: #101010;
+$color-bg: #f6f6f6;
+$color-white: #fff;
+$color-grey: #353535;
+$color-grey2: #EAEAEA;
 
-// Couleurs s
+// Buttons
+
+
+
 

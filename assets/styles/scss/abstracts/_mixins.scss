@@ -1,0 +1,62 @@
+// abstracts/_mixins.scss
+// Mixins génériques et techniques réutilisables
+// Outils bas niveau (typography, flexbox, transitions, breakpoints...)
+// Ne contient PAS de styles spécifiques au projet
+// Utilisé par : _typography.scss, components/, layout/
+
+@use 'variables';
+
+// ==========================================
+// LAYOUT & POSITIONING
+// ==========================================
+
+@mixin flex(
+    $direction: row,
+    $justify: center,
+    $align: center,
+    $wrap: nowrap,
+    $align-content: center
+) {
+    display: flex;              // Valeur CSS fixe (toujours "flex")
+    flex-direction: $direction; // Valeur variable $ (row, column, etc.)
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: $wrap;
+    align-content: $align-content;
+}
+
+// ==========================================
+// TYPOGRAPHY UTILITIES
+// ==========================================
+@mixin typography($size, $weight: 400, $line-height: 1.2) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line-height;
+}
+
+// ==========================================
+// RESPONSIVE & BREAKPOINTS
+// ==========================================
+
+@mixin mobile { }
+@mixin tablet { }
+@mixin desktop { }
+
+// ==========================================
+// ANIMATIONS & TRANSITIONS
+// ==========================================
+
+@mixin animation($name, $duration, $timing) { }
+
+// ==========================================
+// VISUAL EFFECTS
+// ==========================================
+
+//@mixin box-shadow($level) { }
+//@mixin gradient-background($color1, $color2) { }
+//@mixin border-radius($radius) { }
+
+// ==========================================
+// INTERACTIONS
+// ==========================================
+

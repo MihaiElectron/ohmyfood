@@ -1,8 +1,13 @@
+// base/_base.scss
+// Styles globaux HTML/body + configuration font-smoothing
+// Applique font-family et color par défaut
+// Dépend de : _variables.scss
+// Chargé après _reset.scss
 
+@use '../abstracts/variables';
 
 body {
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-    background-color: #fff;
-  }
-  
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: variables.$color-bg; 
+}

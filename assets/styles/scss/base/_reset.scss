@@ -1,7 +1,8 @@
-/* _reset.scss
-   Reset CSS minimal pour OhMyFood
-   Compatible avec Figma (line-height auto)
-*/
+// base/_reset.scss
+// Reset CSS (normalize ou reset personnalisé)
+// Annule les styles par défaut du navigateur
+// Chargé en premier après abstracts/
+// Aucune dépendance, ne dépend d'aucun fichier
 
 /* 1. Reset global des marges et paddings, et box-sizing */
 *,
