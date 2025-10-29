@@ -23,10 +23,14 @@
 <body>
     <header class="header">
         <picture class="header__logo">
-          <source media="(min-width: 1024px)" srcset="/assets/styles/images/logo/ohmyfood@2x.svg">
-          <img src="/assets/styles/images/logo/ohmyfood.png" alt="Logo Ohmyfood">
-        </picture>
-      </header>
+            <!-- version desktop -->
+            <source
+              media="(min-width: 1024px)" srcset="/assets/styles/images/logo/ohmyfood@2x.svg"/>
+            <!-- version mobile par défaut -->
+            <img
+              src="/assets/styles/images/logo/ohmyfood.png" alt="Logo Ohmyfood"/>
+          </picture>
+    </header>
       
 
     <section class="location">
@@ -34,7 +38,13 @@
         <p class="location__text">Paris, Belleville</p>
     </section>
 
-  
+    <section class="hero">
+        <h1 class="hero__title">Réservez le menu qui vous convient</h1>
+        <p class="hero__subtitle">Découvrez les restaurants d'exception séléctionnés par nos soins</p>
+        <button class="button button--large" type="submit">Explorer nos restaurants</button>
+    </section>
+
+    
    
 
 </body>

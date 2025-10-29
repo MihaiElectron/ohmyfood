@@ -13,6 +13,7 @@ $font-family-secondary: 'Shrikhand', sans-serif;
 // Tailles de texte
 
 $font-size-section-title: 24px;
+$font-size-section-title-desktop: 40px;
 $font-size-paragraph: 18px;
 $font-size-button: 16px;
 $font-size-section-title-2: 18px;
@@ -41,6 +42,15 @@ $color-grey: #353535;
 $color-grey2: #EAEAEA;
 
 // Buttons
+
+$btn-width: 186px;
+$btn-height: 50px;
+$btn-border-radius: 25px;
+$btn-color: white;
+$btn-bg-default: linear-gradient(0deg, #9356DC 0%, #FF79DA 100%);
+$btn-bg-hover: rgba(255, 255, 255, 0.15); // Overlay blanc 15%
+$btn-shadow-default: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+$btn-shadow-hover: 0 4px 15px 0 rgba(0, 0, 0, 0.35);
 
 
 

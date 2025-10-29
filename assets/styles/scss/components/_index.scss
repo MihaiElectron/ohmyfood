@@ -1,0 +1,5 @@
+// Ce fichier regroupe tous les composants réutilisables de l’interface : boutons, cartes, sections, etc.
+// Il permet d’organiser les styles modulaires et spécifiques à chaque composant.
+// À importer avec : @use 'components';
+@forward 'buttons';
+@forward 'card';

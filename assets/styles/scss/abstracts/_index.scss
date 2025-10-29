@@ -1,0 +1,6 @@
+// Ce fichier regroupe et réexporte toutes les ressources abstraites du projet Sass.
+// Il inclut les variables, les mixins et les fonctions, afin qu'elles soient accessibles via un seul point d'entrée.
+// À importer avec : @use 'abstracts' as *;
+@forward 'variables';
+@forward 'mixins';
+@forward 'typography'; 

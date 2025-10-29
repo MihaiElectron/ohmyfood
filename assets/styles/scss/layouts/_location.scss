@@ -1,14 +1,15 @@
-@use '../abstracts/variables';
+@use '../abstracts/variables' as v;
 @use '../abstracts/mixins';
 
 .location {
     @include mixins.flex();
     height: 50px;
     gap: 16px;
-    background-color: variables.$color-grey2;
+    background-color: v.$color-grey2;
     box-shadow: inset 0 3px 0px 0 rgba(0, 0, 0, 0.1),
     0 4px 4px 0 rgba(0, 0, 0, 0.2);
-
+    position: relative; // crée un contexte de position
+    z-index: 2;         // s’assure que l’ombre reste visible malgré son débordement caché par la section suivante
     @media screen and (min-width: 1024px) {
         box-shadow: none;
     }

@@ -3,3 +3,13 @@
 // Styles + variantes + états (hover, active...)
 // Dépend de : _variables.scss, _mixins.scss
 // Utilisé dans : toutes les pages
+
+@use '../abstracts/mixins';
+
+.button {
+  @include mixins.button-default(); // largeur par défaut : 162px
+  
+  &--large {
+    @include mixins.button-default(218px);
+  }
+}

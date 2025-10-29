@@ -4,23 +4,23 @@
 // Dépend de : _variables.scss, _mixins.scss
 // Présent sur toutes les pages
 
-@use '../abstracts/mixins';
-@use '../abstracts/variables';
+@use '../abstracts/mixins' as m;
+@use '../abstracts/variables' as v;
 
 .header {
-    @include mixins.flex($align:flex-end);   
-    background-color: variables.$color-white;
+    @include m.flex($align:flex-end);   
+    background-color: v.$color-white;
     height: 63px;
 
     &__logo {
-        @include mixins.flex();
+        @include m.flex();
         width: 162px;
         height: 44px;
        
     }
 
     @media screen and (min-width: 1024px) {
-        @include mixins.flex();
+        @include m.flex();
         height: 96px;
 
         &__logo {

@@ -1,0 +1,5 @@
+// Ce fichier regroupe les styles de base du projet : reset CSS, typographie, éléments HTML globaux.
+// Il permet d’unifier les fondations visuelles du site.
+// À importer avec : @use 'base';
+@forward 'reset';
+@forward 'base'; 

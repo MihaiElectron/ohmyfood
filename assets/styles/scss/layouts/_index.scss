@@ -1,0 +1,8 @@
+// Ce fichier regroupe les styles liés à la structure du site : header, footer, navigation, grille, etc.
+// Il définit l’ossature visuelle et fonctionnelle des pages.
+// À importer avec : @use 'layout';
+@forward 'header';
+@forward 'container';
+@forward 'location';
+@forward 'hero';
+@forward 'footer';

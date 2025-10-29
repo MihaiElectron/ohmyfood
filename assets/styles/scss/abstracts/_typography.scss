@@ -4,10 +4,8 @@
 // Utilise le mixin typography() de _mixins.scss
 // Utilisé par : components/, pages/
 
-@use 'variables';
+@use '../abstracts/mixins';
 
-@mixin typography($size, $weight, $line-height: 1) {
-    font-size: $size;
-    font-weight: $weight;
-    line-height: $line-height;
-  }
+body {
+  @include mixins.typography(16px, 400);
+}

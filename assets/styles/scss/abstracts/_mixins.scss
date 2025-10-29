@@ -4,7 +4,7 @@
 // Ne contient PAS de styles spécifiques au projet
 // Utilisé par : _typography.scss, components/, layout/
 
-@use 'variables';
+@use 'variables' as v;
 
 // ==========================================
 // LAYOUT & POSITIONING
@@ -28,6 +28,7 @@
 // ==========================================
 // TYPOGRAPHY UTILITIES
 // ==========================================
+
 @mixin typography($size, $weight: 400, $line-height: 1.2) {
     font-size: $size;
     font-weight: $weight;
@@ -38,25 +39,39 @@
 // RESPONSIVE & BREAKPOINTS
 // ==========================================
 
-@mixin mobile { }
-@mixin tablet { }
-@mixin desktop { }
+@mixin button-default($width: v.$btn-width, $height: v.$btn-height) {
+  width: $width;
+  height: $height;
+  position: relative;
+  @include flex();
+  border: none;
+  border-radius: v.$btn-border-radius;
+  background: v.$btn-bg-default;
+  color: v.$btn-color;
+  cursor: pointer;
+  box-shadow: v.$btn-shadow-default;
+  overflow: hidden;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: v.$btn-bg-hover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: inherit;
+    z-index: -1;
+    will-change: opacity; // Indique au navigateur d'optimiser cette propriété
+  }
+  
+  &:hover {
+    box-shadow: v.$btn-shadow-hover;
+    transform: translateZ(0); // Force l'accélération GPU
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+}
 
-// ==========================================
-// ANIMATIONS & TRANSITIONS
-// ==========================================
-
-@mixin animation($name, $duration, $timing) { }
-
-// ==========================================
-// VISUAL EFFECTS
-// ==========================================
-
-//@mixin box-shadow($level) { }
-//@mixin gradient-background($color1, $color2) { }
-//@mixin border-radius($radius) { }
-
-// ==========================================
-// INTERACTIONS
-// ==========================================
-
+  

@@ -4,19 +4,10 @@
 // Compile vers : public/css/style.css
 // Ne contient AUCUN style, uniquement des @use/@import
 
-@use 'abstracts/variables';
-@use 'abstracts/mixins';
-@use 'abstracts/typography';
-@use 'base/reset';
-@use 'base/base';
-@use 'layouts/header';
-@use 'layouts/location';
-@use 'layouts/hero';
-@use 'layouts/footer';
-@use 'layouts/container';
-@use 'components/buttons';
-@use 'components/cards';
-@use 'pages/home';
-@use 'pages/restaurant';
-@use 'utils/animations';
+@use 'abstracts';
+@use 'base';
+@use 'layouts';
+@use 'components';
+@use 'pages';
+
 
