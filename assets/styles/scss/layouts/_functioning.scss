@@ -1,0 +1,90 @@
+// layouts/_functioning.scss
+@use '../abstracts/mixins'as m;
+@use '../abstracts/variables' as v;
+
+.functioning {
+    padding: 48px 20px;
+    background-color: #fff;
+
+    &__container {
+        max-width: 1024px;
+        margin: 0 auto;
+        width: 100%;
+        @include m.flex($direction: column, $align: flex-start);
+    }
+  
+    &__title {
+        margin-bottom: 26px;
+        font-size: v.$font-size-section-title;
+        font-weight: v.$font-weight-bold;
+    }
+
+    &__list {
+    @include m.flex($direction: column, $align: center);
+    width: 100%;
+    gap: 25px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: functioning-counter;
+    }
+
+    &__item {
+    @include m.flex($justify: flex-start, $align: flex-end);
+    position: relative;
+    width: 95%;
+    padding: 26.2px 33.47px;
+    background-color: #F6F6F6;
+    border-radius: 20px;
+    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+    gap: 27px;
+    }
+
+    &__number {
+    @include m.flex();
+    position: absolute;
+    left: -12px;
+    width: 24px;
+    height: 24px;
+    background: v.$color-primary; // Violet
+    color: #fff;
+    border-radius: 50%;
+    font-size: 14.18px;
+    font-weight: 500;
+    }
+
+    &__icon {
+    color: v.$color-grey-icon;
+    font-size: 20px;
+    }
+
+    &__item:nth-child(3) &__icon {
+        color: v.$color-primary;
+      }
+
+    &__text {
+    font-size: v.$font-size-button;
+    font-weight: 500;
+    color: #000;
+    line-height: 1; // Assure un alignement précis
+    }
+
+    @media screen and (min-width: 1024px) {
+        padding: 50px;
+        
+        &__list {
+            margin-left: 12px;
+            flex-direction: row;
+            gap: 36.51px;
+        }
+        
+        &__item {
+            flex: 1;
+            width: auto;
+        }
+
+        &__title {
+            margin-bottom: 25px;
+        }
+    }
+}
