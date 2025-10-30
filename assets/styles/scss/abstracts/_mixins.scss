@@ -74,4 +74,17 @@
   }
 }
 
+// ==========================================
+// RESPONSIVE & BREAKPOINTS
+// ==========================================
+
+@mixin container($max: 1080px, $padding: 20px) {
+  max-width: $max;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $padding;
+  padding-right: $padding;
+  width: 100%;
+}
+
   

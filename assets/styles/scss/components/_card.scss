@@ -3,3 +3,123 @@
 // Gère image, texte, badge "Nouveau", icône coeur
 // Dépend de : _variables.scss, _typography.scss
 // Utilisé dans : pages/_home.scss
+
+// Importation des mixins et variables globales
+@use '../abstracts/mixins' as m;         // Mixins réutilisables (flex, container, etc.)
+@use '../abstracts/variables' as v;      // Couleurs, tailles de police, espacements, etc.
+
+// Bloc principal de la carte restaurant
+.restaurant-card {
+    width: 100%;                           // La carte prend toute la largeur disponible
+    border-radius: 15px 15px 0 0;          // Coins arrondis en haut uniquement
+    overflow: hidden;                      // Cache tout débordement (utile pour l’image)
+    background-color: #fff;                // Fond blanc
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); // Ombre douce pour effet de carte
+    position: relative;                    // Nécessaire pour positionner les éléments internes
+    will-change: transform;               // Optimisation pour les animations (hover, etc.)
+
+    // Lien cliquable qui englobe toute la carte
+    &__link {
+        display: block;                      // Le lien occupe tout l’espace
+        text-decoration: none;              // Supprime le soulignement
+        color: inherit;                     // Hérite de la couleur du parent
+        position: relative;                 // Permet de positionner des éléments internes
+    }
+
+    // Conteneur de l’image
+    &__image-wrapper {
+        position: relative;                 // Pour positionner le badge "Nouveau"
+        width: 100%;                        // Prend toute la largeur de la carte
+        height: 180px;                      // Hauteur fixe pour l’image
+        overflow: hidden;                   // Cache les débordements
+
+        img {
+        width: 100%;                      // Image responsive
+        height: 100%;                     // Remplit le conteneur
+        object-fit: cover;                // Recadre l’image sans déformation
+        display: block;                   // Supprime les espaces blancs sous l’image
+        }
+    }
+
+    // Badge "Nouveau"
+    &__badge {
+        position: absolute;                 // Positionné par rapport à l’image
+        top: 12px;                          // Décalé du haut
+        right: 12px;                        // Décalé de la droite
+        background-color: v.$color-tertiary;// Couleur principale du thème
+        color: v.$color-green-font;                       // Texte blanc
+        font-size: 14px;                    // Taille de texte
+        font-weight: 500;                   // Texte semi-gras
+        padding: 6px 12px;                  // Espacement interne
+    }
+
+    // Bloc contenant le nom et la localisation
+    &__info {
+        padding: 16px 20px;                 // Espacement interne
+        @include m.flex($direction: column, $align: flex-start); // Mise en colonne
+        gap: 5px;                           // Espacement entre nom et localisation
+    }
+
+    // Nom du restaurant
+    &__name {
+        font-size: v.$font-size-plate-title; // Taille définie dans les variables
+        font-weight: v.$font-weight-bold;    // Texte en gras
+    }
+
+    // Localisation du restaurant
+    &__location {
+        font-size: v.$font-size-restaurant-location; // Taille définie dans les variables
+        font-weight: v.$font-weight-light;
+        color: black;                                // Couleur du texte
+    }
+
+    // Checkbox invisible pour gérer le toggle du cœur
+    &__checkbox {
+        display: none;                     // Masque la case à cocher
+    }
+
+    // Icône cœur (favori)
+    &__favorite {
+        position: absolute;               // Positionné par rapport à la carte
+        width: 22px;                      // Largeur fixe
+        height: 21px;                     // Hauteur fixe
+        bottom: calc(33px - 21px / 2);    // Alignement vertical centré sur une zone de 33px
+        right: calc(33px - 22px / 2);     // Alignement horizontal centré sur une zone de 33px
+        font-size: 21px;                  // Taille de l’icône (Font Awesome)
+        cursor: pointer;                  // Curseur en forme de main
+
+        i {
+        position: absolute;            // Superpose les deux icônes
+        top: 0;
+        left: 0;
+        transition: opacity 0.2s ease; // Animation fluide lors du toggle
+        }
+
+        .fa-regular {
+        color: v.$color-grey-icon;     // Cœur vide en gris
+        opacity: 1;                    // Visible par défaut
+        }
+
+        .fa-solid {
+        color: v.$color-primary;       // Cœur rempli en couleur principale
+        opacity: 0;                    // Caché par défaut
+        }
+    }
+
+    // Quand la checkbox est cochée, on inverse les opacités
+    &__checkbox:checked + &__favorite {
+        .fa-regular {
+        opacity: 0;                    // Cache le cœur vide
+        }
+
+        .fa-solid {
+        opacity: 1;                    // Affiche le cœur rempli
+        }
+    }
+
+    // Zone pour ajouter des styles spécifiques au desktop
+    @media screen and (min-width: 1024px) {
+        // Tu peux ajouter ici des styles pour les cartes en desktop
+    }
+}
+

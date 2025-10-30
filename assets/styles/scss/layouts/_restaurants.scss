@@ -1,0 +1,51 @@
+@use '../abstracts/mixins' as m;
+@use '../abstracts/variables' as v;
+
+.restaurants {
+    @include m.container;
+    background-color: v.$color-bg;
+    padding: 30px 20px;
+
+  &__title {
+    font-size: v.$font-size-section-title;
+    font-weight: v.$font-weight-bold;
+    margin-bottom: 30px;
+  }
+
+  &__list {
+    @include m.flex($direction: column, $align: center);
+    gap: 28px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  @media screen and (min-width: 768px) {
+    
+    .restaurants__list {
+        @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
+        gap: 35px 0px; // row-gap et column-gap
+        max-width: 1080px;
+      }
+    
+    .restaurant-card {
+        width: calc(50% - 20px); // 4 cartes par ligne avec 20px de gap
+        min-width: 250px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    
+    .restaurants__list {
+        @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
+        gap: 50px 0px; // row-gap et column-gap
+        max-width: 1080px;
+      }
+    
+    .restaurant-card {
+        width: calc(50% - 50px); // 4 cartes par ligne avec 20px de gap
+        min-width: 250px;
+    }
+  }
+}

@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Font Awesome : bibliothèque d'icônes vectorielles pour afficher les pictogrammes (localisation, cœur, etc.) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <!-- Import des polices Shrikhand et Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Shrikhand&display=swap" rel="stylesheet">
@@ -24,18 +24,16 @@
     <header class="header">
         <picture class="header__logo">
             <!-- version desktop -->
-            <source
-              media="(min-width: 1024px)" srcset="/assets/styles/images/logo/ohmyfood@2x.svg"/>
+            <source media="(min-width: 1024px)" srcset="/assets/styles/images/logo/ohmyfood@2x.svg">
             <!-- version mobile par défaut -->
-            <img
-              src="/assets/styles/images/logo/ohmyfood.png" alt="Logo Ohmyfood"/>
+            <img src="/assets/styles/images/logo/ohmyfood.png" alt="Logo Ohmyfood">
           </picture>
     </header>
       
 
     <section class="location">
         <i class="fas fa-map-marker-alt location__icon"></i>
-        <p class="location__text">Paris, Belleville</p>
+        <h2 class="location__text">Paris, Belleville</h2>
     </section>
 
     <section class="hero">
@@ -69,6 +67,84 @@
             </ol>
         </div>
       </section>
+
+      <section class="restaurants">
+        <h2 class="restaurants__title">Restaurants</h2>
+      
+        <ul class="restaurants__list">
+            <li class="restaurant-card">
+                <a href="restaurants/la_palette_du_gout_menu.html" class="restaurant-card__link">
+                    <div class="restaurant-card__image-wrapper">
+                        <img src="assets/styles/images/restaurants/palette_du_gout.jpg" alt="Plat de La palette du goût" class="restaurant-card__image">
+                        <span class="restaurant-card__badge">Nouveau</span>
+                    </div>
+                    <div class="restaurant-card__info">
+                        <h3 class="restaurant-card__name">La palette du goût</h3>
+                        <p class="restaurant-card__location">Ménilmontant</p>
+                    </div>
+                </a>
+                <input type="checkbox" id="fav1" class="restaurant-card__checkbox">
+                <label for="fav1" class="restaurant-card__favorite" aria-label="Ajouter aux favoris">
+                    <i class="fa-regular fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </label>
+            </li>
+          
+            <li class="restaurant-card">
+                <a href="restaurants/la_note_enchantee_menu.html" class="restaurant-card__link">
+                    <div class="restaurant-card__image-wrapper">
+                        <img src="assets/styles/images/restaurants/la_note_enchantee.jpg" alt="Plat de La note enchantée" class="restaurant-card__image">
+                        <span class="restaurant-card__badge">Nouveau</span>
+                    </div>
+                    <div class="restaurant-card__info">
+                        <h3 class="restaurant-card__name">La note enchantée</h3>
+                        <p class="restaurant-card__location">Charonne</p>
+                    </div>
+                </a>
+                <input type="checkbox" id="fav2" class="restaurant-card__checkbox">
+                <label for="fav2" class="restaurant-card__favorite" aria-label="Ajouter aux favoris">
+                    <i class="fa-regular fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </label>
+            </li>
+          
+            <li class="restaurant-card">
+                <a href="restaurants/a_la_francaise_menu.html" class="restaurant-card__link">
+                    <div class="restaurant-card__image-wrapper">
+                        <img src="assets/styles/images/restaurants/a_la_francaise.jpg" alt="Plat de À la française" class="restaurant-card__image">
+                    </div>
+                    <div class="restaurant-card__info">
+                        <h3 class="restaurant-card__name">À la française</h3>
+                        <p class="restaurant-card__location">Cité Rouge</p>
+                    </div>
+                </a>
+                <input type="checkbox" id="fav3" class="restaurant-card__checkbox">
+                <label for="fav3" class="restaurant-card__favorite" aria-label="Ajouter aux favoris">
+                    <i class="fa-regular fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </label>
+            </li>
+          
+            <li class="restaurant-card">
+                <a href="restaurants/le_delice_des_sens_menu.html" class="restaurant-card__link">
+                    <div class="restaurant-card__image-wrapper">
+                        <img src="assets/styles/images/restaurants/le_delice_des_sens.jpg" alt="Plat de Le délice des sens" class="restaurant-card__image">
+                    </div>
+                    <div class="restaurant-card__info">
+                        <h3 class="restaurant-card__name">Le délice des sens</h3>
+                        <p class="restaurant-card__location">Folie-Méricourt</p>
+                    </div>
+                </a>
+                <input type="checkbox" id="fav4" class="restaurant-card__checkbox">
+                <label for="fav4" class="restaurant-card__favorite" aria-label="Ajouter aux favoris">
+                    <i class="fa-regular fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </label>
+            </li>
+          </ul>
+          
+      </section>
+      
    
 
 </body>
