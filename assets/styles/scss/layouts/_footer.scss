@@ -4,3 +4,88 @@
 // Dépend de : _variables.scss, _typography.scss
 // Présent sur toutes les pages
 
+@use '../abstracts/mixins' as m;
+@use '../abstracts/variables' as v;
+
+
+.footer {
+    @include m.flex($direction: column, $align: flex-start);
+    background-color: v.$color-grey;
+    padding: 22px 25px;
+    gap: 16px;
+
+    &__title {
+        font-family: v.$font-family-secondary;
+        font-size: v.$font-size-paragraph;
+        font-weight: v.$font-weight-regular;
+        color: v.$color-white;
+    }
+
+    &__links-container {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    &__links-partner {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+    
+    &__links-info {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        color: v.$color-white;
+        gap: 5px;
+        @include m.typography ($size: v.$font-size-footer, $weight: 500);
+    }
+
+    &__icon {
+        font-size: 13px;
+        transform: scaleX(0.85);            
+        flex-shrink: 0;
+        
+    }
+
+// RESPONSIVE DESKTOP ≥ 1024px
+@media screen and (min-width: 1024px) {
+    flex-direction: row-reverse;
+    justify-content: flex-start; // Tout à droite
+    align-items: center;
+    padding: 30px 66px;
+    padding-top: 66px;
+    gap: 90px; // Espace entre les liens et le titre
+    
+    &__title {
+      text-align: start;
+    }
+
+    &__links-container {
+        flex-direction: row;
+        gap: 42px;
+    }
+    
+    &__links-partner {
+      flex-direction: row;
+      gap: 7px; // Espace entre chaque lien
+    }
+    
+    &__links-info {
+      flex-direction: row;
+      gap: 16px; // Espace entre chaque lien
+    }
+    
+    &__link {
+      gap: 11px;
+    }
+  }
+        
+}
+
