@@ -11,6 +11,20 @@
     @include m.flex($align:flex-end);   
     background-color: v.$color-white;
     height: 63px;
+    position: relative;
+
+    &__home-button {
+        position: absolute;
+        font-size: 16px;
+        transform: scaleX(1.23);
+        padding: 5.2px;
+        top: 17px;
+        left: 17px;
+        
+        top: 17px;
+        left: 17px;
+        color: v.$color-grey;
+    }
 
     &__logo {
         @include m.flex();
@@ -22,6 +36,11 @@
     @media screen and (min-width: 1024px) {
         @include m.flex();
         height: 96px;
+
+        &__home-button {
+            top: 33px;
+            
+        }
 
         &__logo {
             width: 200px;

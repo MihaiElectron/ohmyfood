@@ -1,0 +1,221 @@
+// layouts/_menu.scss
+@use '../abstracts/mixins' as m;
+@use '../abstracts/variables' as v;
+
+.menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: -55px;
+    background: v.$color-bg;
+    border-radius: 40px 40px 0 0;
+    padding: 32px 13px 40px;
+    gap: 40px;
+    
+    &__header {
+        @include m.flex($justify: space-between, $align: center);
+        
+        padding: 0 17px;
+    }
+    
+    &__title {
+        font-family: v.$font-family-secondary;
+        font-size: 28px;
+        font-weight: v.$font-weight-regular;
+    }
+        
+    &__order {
+        @include m.flex();
+        margin-top: 40px;
+    }
+}
+
+// Système de favori
+.restaurant__checkbox {
+  display: none;
+}
+
+.restaurant__favorite {
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease;
+  }
+
+  // Cœur vide (par défaut)
+  .fa-regular {
+    color: v.$color-grey-icon;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  // Cœur plein avec dégradé
+  .fa-solid {
+    background: linear-gradient(0deg, v.$color-primary, v.$color-secondary);
+    background-clip: text;
+    color: transparent;
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  // Effet au survol
+  &:hover .fa-solid {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  &:hover .fa-regular {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+// État coché (favori activé)
+.restaurant__checkbox:checked + .restaurant__favorite {
+  .fa-regular {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  .fa-solid {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+// État coché (favori activé)
+.restaurant__checkbox:checked + .restaurant__favorite {
+    .fa-regular {
+      opacity: 0;
+    }
+  
+    .fa-solid {
+      opacity: 1;
+      transform: scale(1);
+    }
+}
+
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 27px;
+  }
+
+  &__title {
+    font-size: v.$font-size-menu-section-title;
+    font-weight: v.$font-weight-light;
+  }
+
+  &__underline {
+    width: 40px;
+    height: 3px;
+    background-color: v.$color-tertiary;
+
+  }
+}
+
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: v.$color-white;
+  border-radius: 15px;
+  overflow: hidden;
+
+  &__toggle {
+    display: none;
+
+    &:checked + .menu-item__label .menu-item__check {
+      transform: translateX(0);
+    }
+
+    &:checked + .menu-item__label .menu-item__details {
+      text-overflow: ellipsis;
+      
+    }
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 69px;
+    cursor: pointer;
+    position: relative; 
+  }
+
+  &__content {
+    padding: 13.5px;
+    transition: padding-right 0.4s ease;
+  }
+
+  &__title {
+    font-weight: v.$font-weight-medium;
+    font-size: v.$font-size-plate-title;
+  }
+
+  &__info-line {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__details {
+    font-weight: v.$font-weight-light;
+    font-size: v.$font-size-plate-details;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: unset;
+    max-width: none;
+    transition: all 0.3s ease;
+  }
+
+  &__price {
+    font-weight: v.$font-weight-bold;
+    font-size: v.$font-size-plate-price;
+    position: absolute;
+    left: -40px;
+    bottom: 13.5px;
+  }
+
+  &__check {
+    position: relative;
+    width: 59px;
+    height: 100%;
+    background-color: v.$color-tertiary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    border-radius: 0 15px 15px 0;
+  }
+
+  &__check-icon {
+    color: white;
+    font-size: 20px;
+  }
+}
+

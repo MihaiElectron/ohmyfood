@@ -10,116 +10,126 @@
 
 // Bloc principal de la carte restaurant
 .restaurant-card {
-    width: 100%;                           // La carte prend toute la largeur disponible
-    border-radius: 15px;          // Coins arrondis en haut uniquement
-    overflow: hidden;                      // Cache tout débordement (utile pour l’image)
-    background-color: #fff;                // Fond blanc
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); // Ombre douce pour effet de carte
-    position: relative;                    // Nécessaire pour positionner les éléments internes
-    will-change: transform;               // Optimisation pour les animations (hover, etc.)
-
-    // Lien cliquable qui englobe toute la carte
+    position: relative;
+    width: 100%;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    will-change: transform;
+  
     &__link {
-        display: block;                      // Le lien occupe tout l’espace
-        text-decoration: none;              // Supprime le soulignement
-        color: inherit;                     // Hérite de la couleur du parent
-        position: relative;                 // Permet de positionner des éléments internes
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
     }
-
-    // Conteneur de l’image
+  
     &__image-wrapper {
-        position: relative;                 // Pour positionner le badge "Nouveau"
-        width: 100%;                        // Prend toute la largeur de la carte
-        height: 180px;                      // Hauteur fixe pour l’image
-        overflow: hidden;                   // Cache les débordements
-
-        img {
-        width: 100%;                      // Image responsive
-        height: 100%;                     // Remplit le conteneur
-        object-fit: cover;                // Recadre l’image sans déformation
-        display: block;                   // Supprime les espaces blancs sous l’image
-        }
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+  
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
     }
-
-    // Badge "Nouveau"
+  
     &__badge {
-        position: absolute;                 // Positionné par rapport à l’image
-        top: 12px;                          // Décalé du haut
-        right: 12px;                        // Décalé de la droite
-        background-color: v.$color-tertiary;// Couleur principale du thème
-        color: v.$color-green-font;                       // Texte blanc
-        font-size: 14px;                    // Taille de texte
-        font-weight: 500;                   // Texte semi-gras
-        padding: 6px 12px;                  // Espacement interne
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background-color: v.$color-tertiary;
+      color: v.$color-green-font;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 12px;
     }
-
-    // Bloc contenant le nom et la localisation
+  
     &__info {
-        padding: 16px 20px;                 // Espacement interne
-        @include m.flex($direction: column, $align: flex-start); // Mise en colonne
-        gap: 5px;                           // Espacement entre nom et localisation
+      padding: 16px 20px;
+      @include m.flex($direction: column, $align: flex-start);
+      gap: 5px;
     }
-
-    // Nom du restaurant
+  
     &__name {
-        font-size: v.$font-size-plate-title; // Taille définie dans les variables
-        font-weight: v.$font-weight-bold;    // Texte en gras
+      font-size: v.$font-size-plate-title;
+      font-weight: v.$font-weight-bold;
     }
-
-    // Localisation du restaurant
+  
     &__location {
-        font-size: v.$font-size-restaurant-location; // Taille définie dans les variables
-        font-weight: v.$font-weight-light;
-        color: black;                                // Couleur du texte
+      font-size: v.$font-size-restaurant-location;
+      font-weight: v.$font-weight-light;
+      color: black;
     }
-
-    // Checkbox invisible pour gérer le toggle du cœur
+  
+    // Favori (système de cœur)
     &__checkbox {
-        display: none;                     // Masque la case à cocher
+      display: none;
     }
-
-    // Icône cœur (favori)
+  
     &__favorite {
-        position: absolute;               // Positionné par rapport à la carte
-        width: 22px;                      // Largeur fixe
-        height: 21px;                     // Hauteur fixe
-        bottom: calc(33px - 21px / 2);    // Alignement vertical centré sur une zone de 33px
-        right: calc(33px - 22px / 2);     // Alignement horizontal centré sur une zone de 33px
-        font-size: 21px;                  // Taille de l’icône (Font Awesome)
-        cursor: pointer;                  // Curseur en forme de main
-
-        i {
-        position: absolute;            // Superpose les deux icônes
+      position: absolute;
+      bottom: calc(33px - 21px / 2);
+      right: calc(33px - 22px / 2);
+      width: 22px;
+      height: 22px;
+      font-size: 22px;
+      cursor: pointer;
+  
+      i {
+        position: absolute;
         top: 0;
         left: 0;
-        transition: opacity 0.2s ease; // Animation fluide lors du toggle
-        }
-
-        .fa-regular {
-        color: v.$color-grey-icon;     // Cœur vide en gris
-        opacity: 1;                    // Visible par défaut
-        }
-
-        .fa-solid {
-        color: v.$color-primary;       // Cœur rempli en couleur principale
-        opacity: 0;                    // Caché par défaut
-        }
+        transition: all 0.3s ease;
+      }
+  
+      .fa-regular {
+        color: v.$color-grey-icon;
+        opacity: 1;
+        transform: scale(1);
+      }
+  
+      .fa-solid {
+        background: linear-gradient(0deg, v.$color-primary, v.$color-secondary);
+        background-clip: text;
+        color: transparent;
+        opacity: 0;
+        transform: scale(0);
+      }
+      
+      &:hover .fa-solid {
+        opacity: 1;
+        transform: scale(1);
+      }
+    
+      &:hover .fa-regular {
+        opacity: 0;
+        transform: scale(0);
+      }
     }
-
-    // Quand la checkbox est cochée, on inverse les opacités
+  
+    // État favori activé
     &__checkbox:checked + &__favorite {
-        .fa-regular {
-        opacity: 0;                    // Cache le cœur vide
-        }
-
-        .fa-solid {
-        opacity: 1;                    // Affiche le cœur rempli
-        }
+      .fa-regular {
+        opacity: 0;
+        transform: scale(0);
+      }
+  
+      .fa-solid {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
+ 
+  
 
     // Zone pour ajouter des styles spécifiques au desktop
     @media screen and (min-width: 1024px) {
         // Tu peux ajouter ici des styles pour les cartes en desktop
     }
 }
-
