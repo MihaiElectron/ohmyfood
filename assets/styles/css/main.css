@@ -108,6 +108,10 @@ body {
   position: relative;
   z-index: 2;
 }
+.location__text {
+  font-weight: 500;
+  font-size: 16px;
+}
 @media screen and (min-width: 1024px) {
   .location {
     box-shadow: none;
@@ -184,6 +188,42 @@ body {
   transform: translateZ(0);
 }
 .button--large:hover::before {
+  opacity: 1;
+}
+.button--medium {
+  width: 186px;
+  height: 50px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  align-content: center;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(0deg, #9356DC 0%, #FF79DA 100%);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.button--medium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  z-index: -1;
+  will-change: opacity;
+}
+.button--medium:hover {
+  box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.35);
+  transform: translateZ(0);
+}
+.button--medium:hover::before {
   opacity: 1;
 }
 
@@ -430,7 +470,7 @@ body {
   width: 100%;
 }
 @media screen and (min-width: 768px) {
-  .restaurants .restaurants__list {
+  .restaurants__list {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -448,8 +488,12 @@ body {
 @media screen and (min-width: 1024px) {
   .restaurants {
     padding-bottom: 30px;
+    max-width: 1055px; /* largeur maximale */
+    width: 100%; /* occupe toute la largeur si < max-width */
+    margin: 0 auto; /* centre horizontalement */
+    box-sizing: border-box; /* inclut padding dans la largeur */
   }
-  .restaurants .restaurants__list {
+  .restaurants__list {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -486,6 +530,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
   margin-top: -55px;
   background: #f6f6f6;
   border-radius: 40px 40px 0 0;
@@ -499,12 +544,13 @@ body {
   align-items: center;
   flex-wrap: nowrap;
   align-content: center;
-  padding: 0 17px;
+  margin-right: 3%;
 }
 .menu__title {
   font-family: "Shrikhand", sans-serif;
   font-size: 28px;
   font-weight: 400;
+  text-align: left;
 }
 .menu__order {
   display: flex;
@@ -669,6 +715,39 @@ body {
 .menu-item__check-icon {
   color: white;
   font-size: 20px;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto; /* centre horizontalement */
+  box-sizing: border-box;
+}
+@media screen and (min-width: 768px) {
+  .menu-container {
+    background-color: #fff;
+  }
+  .menu-container .menu {
+    max-width: 80%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .menu-container {
+    background-color: #fff;
+  }
+  .menu-container .menu {
+    align-items: center;
+    max-width: 1055px;
+  }
+  .menu-container .menu__header {
+    gap: 24px;
+  }
+  .menu-container .menu-section {
+    width: 60%;
+  }
 }
 
 .restaurant-card {

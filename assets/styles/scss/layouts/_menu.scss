@@ -6,23 +6,25 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    width: 100%;
     margin-top: -55px;
     background: v.$color-bg;
     border-radius: 40px 40px 0 0;
     padding: 32px 13px 40px;
     gap: 40px;
     
+    
     &__header {
         @include m.flex($justify: space-between, $align: center);
-        
-        padding: 0 17px;
+        margin-right: 3%;
     }
     
     &__title {
         font-family: v.$font-family-secondary;
         font-size: 28px;
         font-weight: v.$font-weight-regular;
-    }
+        text-align: left
+      }
         
     &__order {
         @include m.flex();
@@ -216,6 +218,43 @@
   &__check-icon {
     color: white;
     font-size: 20px;
+  }
+}
+
+.menu-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;          /* centre horizontalement */
+  box-sizing: border-box;
+
+  @media screen and (min-width:768px) {
+    background-color: v.$color-white;
+  
+    .menu {
+      max-width: 80%;
+      padding-left: 5%;
+      padding-right: 5%;
+    }    
+  }
+  
+  @media screen and (min-width:1024px) {
+    background-color: v.$color-white;
+    
+    .menu {
+      align-items: center;
+      
+      max-width: 1055px;
+
+      &__header {
+        gap: 24px;
+      }
+    }
+    
+    .menu-section {
+     width: 60%;
+    
+    }
   }
 }
 

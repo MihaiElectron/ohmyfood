@@ -12,4 +12,8 @@
   &--large {
     @include mixins.button-default(218px);
   }
+  
+  &--medium {
+    @include mixins.button-default;
+  }
 }

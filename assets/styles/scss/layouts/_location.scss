@@ -10,6 +10,12 @@
     0 4px 4px 0 rgba(0, 0, 0, 0.2);
     position: relative; // crée un contexte de position
     z-index: 2;         // s’assure que l’ombre reste visible malgré son débordement caché par la section suivante
+    
+    &__text {
+        font-weight: v.$font-weight-medium;
+        font-size: v.$font-size-menu-section-location;
+    }
+    
     @media screen and (min-width: 1024px) {
         box-shadow: none;
     }

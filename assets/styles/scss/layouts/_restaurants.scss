@@ -24,7 +24,7 @@
   
   @media screen and (min-width: 768px) {
     
-    .restaurants__list {
+    &__list {
         @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
         gap: 35px 0px; // row-gap et column-gap
         max-width: 1080px;
@@ -37,16 +37,20 @@
   }
 
   @media screen and (min-width: 1024px) {
-    padding-bottom: 30px;
-    .restaurants__list {
-        @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
-        gap: 50px 0px; // row-gap et column-gap
-        max-width: 1080px;
+      padding-bottom: 30px;
+      max-width: 1055px; /* largeur maximale */
+      width: 100%;       /* occupe toute la largeur si < max-width */
+      margin: 0 auto;    /* centre horizontalement */
+      box-sizing: border-box; /* inclut padding dans la largeur */
+      &__list {
+          @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
+          gap: 50px 0px; // row-gap et column-gap
+          max-width: 1080px;
+        }
+      
+      .restaurant-card {
+          width: calc(50% - 50px); // 4 cartes par ligne avec 20px de gap
+          min-width: 250px;
       }
-    
-    .restaurant-card {
-        width: calc(50% - 50px); // 4 cartes par ligne avec 20px de gap
-        min-width: 250px;
-    }
   }
 }
