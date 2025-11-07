@@ -1,0 +1,312 @@
+@use '../abstracts/mixins' as m;
+@use '../abstracts/variables' as v;
+
+/**
+ * LOADER - Écran de chargement animé
+ * Affiche un chef cuisinier animé avec un couteau qui coupe un poivron
+ */
+.loader {
+  position: fixed;
+  inset: 0; /* couvre tout l’écran */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  border: solid 2px v.$color-grey;
+  box-shadow: inset 0 0 88px rgba(0, 0, 0, 0.85);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to top, v.$color-primary, v.$color-secondary);
+  background-size: 100% 200%; // le double pour animer la montée
+  opacity: 0;
+  animation: gradientMove 1s ease-in-out alternate, fadeOut 0s linear 3s forwards;
+  animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête. forwards garde l’état final (opacity: 0, visibility: hidden) après la fin
+
+  z-index: 9999;
+  
+
+  &__svg-wrapper {
+      transform: translateY(-35px);
+  }
+
+
+  &__svg {
+
+    transform: scale(1.4); 
+    transform-origin: center center;
+    pointer-events: none;
+
+    /**
+     * TRANCHE DE POIVRON - Apparaît après la découpe
+     * Commence à échelle Y 0 et s'affiche de haut en bas
+     */
+     #slice-pepper {
+      transform-box: fill-box;
+      transform: scaleY(0);
+      animation: pepperSlice 1s ease-in-out;
+      animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+      
+      #slice-pepper-outside {
+        fill: v.$color-pepper-outside;
+      }
+      
+      #slice-pepper-inside {
+        fill: v.$color-pepper-inside;
+      }
+    }
+
+    /**
+     * COUTEAU - Animation de découpe rebondissante
+     */
+    #knife {
+      transform: translate(-50px, 0);
+      transform-origin: center bottom;
+      animation: knifeBounce 1s ease-in ;
+      animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+      
+      #knife-ext {
+        fill: v.$color-grey;
+      }
+      
+      #knife-int {
+        fill: v.$color-grey2;
+      }
+    }
+
+    /**
+     * CHEF - Personnage principal avec animations synchronisées
+     */
+
+      /**
+       * Wrapper du haut de toque - Rebond global
+       */
+      #toque-haut-wrapper {
+        transform-origin: center bottom;
+        z-index: 10;
+        animation: toqueBounce 1s ease-in-out;
+        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+      }
+
+      /**
+       * Ombre de la toque - Effet de profondeur sans blur
+       */
+      #toque-haut-shadow {
+        fill: rgba(0, 0, 0, 0.5);
+        transform: translate(-5px, -5px);
+        transform-origin: center center;
+        animation: toqueDeform 1s ease-in-out;
+        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+      }
+
+      /**
+       * Haut de la toque (partie blanche) - Déformation élastique
+       */
+      #toque-haut {
+        fill: v.$color-grey2;
+        transform-origin: center center;
+        animation: toqueDeform 1s ease-in-out;
+        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+      }
+
+      /**
+       * Bas de la toque - Animation verticale synchronisée
+       */
+      #toque-bas {
+        fill: v.$color-grey;
+        transform-origin: center bottom;
+        animation: basBounce 1s ease-in-out;
+        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+        z-index: 2;
+      }
+
+      /**
+       * Moustaches du chef - Rebond synchronisé avec le bas de toque
+       */
+      #moustaches {
+        fill: v.$color-black;
+        transform-origin: center bottom;
+        animation: moustachesBounce 1s ease-in-out; 
+        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+        z-index: 2;
+
+        #moustache-l {
+          transform-origin: right;
+          transform-box: fill-box;   /* fait que le ‘center’ s’applique au path lui-même */
+          animation: moustache-lAnim 1s ease-in-out;
+          animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+        }
+        
+        #moustache-r {
+          transform-origin: left;
+          transform-box: fill-box;   /* fait que le ‘center’ s’applique au path lui-même */
+          animation: moustache-rAnim 1s ease-in-out;
+          animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+        }
+      }
+
+      /**
+       * Barbe du chef - Animation identique au bas de toque
+       */
+      #beard {
+        fill: v.$color-black;
+        transform-origin: center bottom;
+        animation: basBounce 1s ease-in-out;
+        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+        z-index: 2;
+      }
+
+    /**
+     * POIVRON - Légume à découper
+     */
+    #pepper {
+      #pepper-outside {
+        fill: v.$color-pepper-outside;
+      }
+      
+      #pepper-inside {
+        fill: v.$color-pepper-inside;
+      }
+      
+      #pepper-tail {
+        fill: v.$color-pepper-tail;
+      }
+    }
+  }
+}
+
+/**
+ * ANIMATIONS
+ */
+
+
+@keyframes knifeBounce {
+  0%, 100% {
+    transform: translate(-50px, -25px);
+  }
+  
+  9% {
+    transform: translate(-55px, 3px);
+  }
+  
+  40% {
+    transform: translate(-45px, -20px);
+  }
+}
+
+@keyframes pepperSlice {
+  0%, 10% {
+    transform: scaleY(0);
+  }
+
+  49% {
+    transform: scaleY(1);    
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes basBounce {
+  0%, 12%, 70%, 100% {
+    transform: translateY(0);
+  }
+  
+  15% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes moustachesBounce {
+  0%, 12%, 70%, 100% {
+    transform: translateY(0);
+  }
+  
+  15% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes moustache-lAnim {
+  0%, 12%, 70%, 100% {
+    transform: rotate(0) ;
+  }
+  
+  15% {
+    transform: rotate(-35deg) scaleX(1.4) scaleY(0.7);
+  }
+  
+  35% {
+    transform: rotate(5deg) scaleX(1.1) scaleY(0.9);
+  }
+}
+
+@keyframes moustache-rAnim {
+  0%, 12%, 70%, 100% {
+    transform: rotate(0) ;
+  }
+  
+  15% {
+    transform: rotate(35deg) scaleX(1.4) scaleY(0.7);
+  }
+  
+  35% {
+    transform: rotate(-5deg) scaleX(1.1) scaleY(0.9);
+  }
+}
+
+
+
+@keyframes toqueBounce {
+  0%, 13%, 100% {
+    transform: translateY(0);
+  }
+  
+  40% {
+    transform: translateY(-6px);
+  }
+  
+  60%, 80% {
+    transform: translateY(1px);
+  }
+}
+
+@keyframes toqueDeform {
+  0%, 13%, 100% {
+    transform: scaleY(1) scaleX(1);
+  }
+  
+  22% {
+    transform: scaleY(0.85) scaleX(1.2);
+  }
+  
+  60% {
+    transform: scaleY(1.35) scaleX(0.95);
+  }
+  
+  80% {
+    transform: scaleY(0.95) scaleX(1.05);
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0 100% ;
+    opacity: 0.9;
+  }
+  100% {
+    background-position: 0 0% ;
+    opacity: 0.9;
+  }
+}
+
+  // Animation d’opacité pour disparition
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }

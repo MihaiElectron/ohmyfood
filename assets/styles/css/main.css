@@ -516,7 +516,7 @@ body {
 }
 .restaurant-hero__image {
   width: 100%;
-  height: 100% px;
+  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -750,6 +750,260 @@ body {
   }
 }
 
+/**
+ * LOADER - Écran de chargement animé
+ * Affiche un chef cuisinier animé avec un couteau qui coupe un poivron
+ */
+.loader {
+  position: fixed;
+  inset: 0; /* couvre tout l’écran */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  border: solid 2px #353535;
+  box-shadow: inset 0 0 88px rgba(0, 0, 0, 0.85);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to top, #9356DC, #FF79DA);
+  background-size: 100% 200%;
+  opacity: 0;
+  animation: gradientMove 1s ease-in-out alternate, fadeOut 0s linear 3s forwards;
+  animation-iteration-count: 3;
+  z-index: 9999;
+}
+.loader__svg-wrapper {
+  transform: translateY(-35px);
+}
+.loader__svg {
+  transform: scale(1.4);
+  transform-origin: center center;
+  pointer-events: none;
+  /**
+   * TRANCHE DE POIVRON - Apparaît après la découpe
+   * Commence à échelle Y 0 et s'affiche de haut en bas
+   */
+  /**
+   * COUTEAU - Animation de découpe rebondissante
+   */
+  /**
+   * CHEF - Personnage principal avec animations synchronisées
+   */
+  /**
+   * Wrapper du haut de toque - Rebond global
+   */
+  /**
+   * Ombre de la toque - Effet de profondeur sans blur
+   */
+  /**
+   * Haut de la toque (partie blanche) - Déformation élastique
+   */
+  /**
+   * Bas de la toque - Animation verticale synchronisée
+   */
+  /**
+   * Moustaches du chef - Rebond synchronisé avec le bas de toque
+   */
+  /**
+   * Barbe du chef - Animation identique au bas de toque
+   */
+  /**
+   * POIVRON - Légume à découper
+   */
+}
+.loader__svg #slice-pepper {
+  transform-box: fill-box;
+  transform: scaleY(0);
+  animation: pepperSlice 1s ease-in-out;
+  animation-iteration-count: 3;
+}
+.loader__svg #slice-pepper #slice-pepper-outside {
+  fill: rgba(201, 0, 33, 0.932);
+}
+.loader__svg #slice-pepper #slice-pepper-inside {
+  fill: rgba(94, 3, 18, 0.904);
+}
+.loader__svg #knife {
+  transform: translate(-50px, 0);
+  transform-origin: center bottom;
+  animation: knifeBounce 1s ease-in;
+  animation-iteration-count: 3;
+}
+.loader__svg #knife #knife-ext {
+  fill: #353535;
+}
+.loader__svg #knife #knife-int {
+  fill: #EAEAEA;
+}
+.loader__svg #toque-haut-wrapper {
+  transform-origin: center bottom;
+  z-index: 10;
+  animation: toqueBounce 1s ease-in-out;
+  animation-iteration-count: 3;
+}
+.loader__svg #toque-haut-shadow {
+  fill: rgba(0, 0, 0, 0.5);
+  transform: translate(-5px, -5px);
+  transform-origin: center center;
+  animation: toqueDeform 1s ease-in-out;
+  animation-iteration-count: 3;
+}
+.loader__svg #toque-haut {
+  fill: #EAEAEA;
+  transform-origin: center center;
+  animation: toqueDeform 1s ease-in-out;
+  animation-iteration-count: 3;
+}
+.loader__svg #toque-bas {
+  fill: #353535;
+  transform-origin: center bottom;
+  animation: basBounce 1s ease-in-out;
+  animation-iteration-count: 3;
+  z-index: 2;
+}
+.loader__svg #moustaches {
+  fill: #101010;
+  transform-origin: center bottom;
+  animation: moustachesBounce 1s ease-in-out;
+  animation-iteration-count: 3;
+  z-index: 2;
+}
+.loader__svg #moustaches #moustache-l {
+  transform-origin: right;
+  transform-box: fill-box; /* fait que le ‘center’ s’applique au path lui-même */
+  animation: moustache-lAnim 1s ease-in-out;
+  animation-iteration-count: 3;
+}
+.loader__svg #moustaches #moustache-r {
+  transform-origin: left;
+  transform-box: fill-box; /* fait que le ‘center’ s’applique au path lui-même */
+  animation: moustache-rAnim 1s ease-in-out;
+  animation-iteration-count: 3;
+}
+.loader__svg #beard {
+  fill: #101010;
+  transform-origin: center bottom;
+  animation: basBounce 1s ease-in-out;
+  animation-iteration-count: 3;
+  z-index: 2;
+}
+.loader__svg #pepper #pepper-outside {
+  fill: rgba(201, 0, 33, 0.932);
+}
+.loader__svg #pepper #pepper-inside {
+  fill: rgba(94, 3, 18, 0.904);
+}
+.loader__svg #pepper #pepper-tail {
+  fill: rgba(0, 201, 27, 0.288);
+}
+
+/**
+ * ANIMATIONS
+ */
+@keyframes knifeBounce {
+  0%, 100% {
+    transform: translate(-50px, -25px);
+  }
+  9% {
+    transform: translate(-55px, 3px);
+  }
+  40% {
+    transform: translate(-45px, -20px);
+  }
+}
+@keyframes pepperSlice {
+  0%, 10% {
+    transform: scaleY(0);
+  }
+  49% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+@keyframes basBounce {
+  0%, 12%, 70%, 100% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes moustachesBounce {
+  0%, 12%, 70%, 100% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes moustache-lAnim {
+  0%, 12%, 70%, 100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(-35deg) scaleX(1.4) scaleY(0.7);
+  }
+  35% {
+    transform: rotate(5deg) scaleX(1.1) scaleY(0.9);
+  }
+}
+@keyframes moustache-rAnim {
+  0%, 12%, 70%, 100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(35deg) scaleX(1.4) scaleY(0.7);
+  }
+  35% {
+    transform: rotate(-5deg) scaleX(1.1) scaleY(0.9);
+  }
+}
+@keyframes toqueBounce {
+  0%, 13%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+  60%, 80% {
+    transform: translateY(1px);
+  }
+}
+@keyframes toqueDeform {
+  0%, 13%, 100% {
+    transform: scaleY(1) scaleX(1);
+  }
+  22% {
+    transform: scaleY(0.85) scaleX(1.2);
+  }
+  60% {
+    transform: scaleY(1.35) scaleX(0.95);
+  }
+  80% {
+    transform: scaleY(0.95) scaleX(1.05);
+  }
+}
+@keyframes gradientMove {
+  0% {
+    background-position: 0 100%;
+    opacity: 0.9;
+  }
+  100% {
+    background-position: 0 0%;
+    opacity: 0.9;
+  }
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 .restaurant-card {
   position: relative;
   width: 100%;

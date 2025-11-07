@@ -4,9 +4,7 @@ Oh my food - Textes.txt
 .DS_Store
 node_modules/
 
-
-# Fichiers compilés Sass
-assets/styles/*.css
-assets/styles/*.css.map
-assets/styles/*.min.css
-assets/styles/*.min.css.map
+# Fichiers générés automatiquement par Sass
+*.css.map
+*.min.css
+*.min.css.map
