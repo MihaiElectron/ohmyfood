@@ -1,37 +1,101 @@
 // base/_reset.scss
-// Reset CSS (normalize ou reset personnalisé)
-// Annule les styles par défaut du navigateur
-// Chargé en premier après abstracts/
-// Aucune dépendance, ne dépend d'aucun fichier
 
-/* 1. Reset global des marges et paddings, et box-sizing */
+// =============================================================================
+// RESET CSS - NORMALISATION DES STYLES NAVIGATEUR
+// =============================================================================
+// Description : Annule et uniformise les styles par défaut des navigateurs
+// Ordre de chargement : Premier fichier après abstracts/ dans main.scss
+// Dépendances : Aucune (fichier autonome)
+// Portée : Tous les éléments HTML du projet
+// =============================================================================
+
+
+// =============================================================================
+// RESET GLOBAL
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Sélecteurs : *, *::before, *::after
+// -----------------------------------------------------------------------------
+// Description : Reset universel appliqué à tous les éléments et pseudo-éléments
+// Margin/Padding : 0 pour suppression des espacements navigateur
+// Box-sizing : border-box pour calcul de dimensions incluant padding et border
+// Impact : Simplifie le calcul des dimensions et élimine les espacements inattendus
+// -----------------------------------------------------------------------------
 *,
 *::before,
 *::after {
-  margin: 0;       // Supprime les marges par défaut
-  padding: 0;      // Supprime les paddings par défaut
-  box-sizing: border-box; // Inclut le padding dans la largeur/hauteur
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* 2. Listes */
+
+// =============================================================================
+// LISTES
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Éléments : ul, ol
+// -----------------------------------------------------------------------------
+// Description : Suppression des marqueurs de liste par défaut
+// List-style : none pour retirer puces (ul) et numérotation (ol)
+// Usage : Permet un style personnalisé des listes dans le design system
+// -----------------------------------------------------------------------------
 ul, ol {
-  list-style: none; // Supprime les puces/nombres par défaut
+  list-style: none;
 }
 
-/* 3. Images et vidéos */
+
+// =============================================================================
+// MÉDIAS
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Éléments : img, video
+// -----------------------------------------------------------------------------
+// Description : Normalisation du comportement des éléments média
+// Max-width : 100% pour éviter le débordement du conteneur parent
+// Display : block pour supprimer l'espace blanc sous les images (inline par défaut)
+// Résultat : Médias responsive et sans décalage vertical
+// -----------------------------------------------------------------------------
 img, video {
-  max-width: 100%; // Empêche le débordement
-  display: block;  // Évite les espaces blancs sous les images
+  max-width: 100%;
+  display: block;
 }
 
-/* 4. Liens */
+
+// =============================================================================
+// LIENS
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Élément : a
+// -----------------------------------------------------------------------------
+// Description : Reset des styles de liens par défaut
+// Text-decoration : none pour suppression du soulignement
+// Color : inherit pour hériter de la couleur du texte parent
+// Avantage : Permet un contrôle total du style des liens via classes
+// -----------------------------------------------------------------------------
 a {
-  text-decoration: none; // Supprime le soulignement par défaut
-  color: inherit;        // Hérite de la couleur du texte parent
+  text-decoration: none;
+  color: inherit;
 }
 
-/* 5. Formulaires */
+
+// =============================================================================
+// FORMULAIRES
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Éléments : input, button, textarea, select
+// -----------------------------------------------------------------------------
+// Description : Normalisation typographique des éléments de formulaire
+// Font-family : inherit pour utiliser la police du body
+// Font-size : inherit pour respecter la taille définie dans le contexte
+// Raison : Les navigateurs appliquent leurs propres polices aux formulaires
+// -----------------------------------------------------------------------------
 input, button, textarea, select {
-  font-family: inherit; // Hérite de la police définie dans le body
-  font-size: inherit;   // Hérite de la taille de police
+  font-family: inherit;
+  font-size: inherit;
 }

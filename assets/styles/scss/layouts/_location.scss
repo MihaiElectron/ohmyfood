@@ -1,22 +1,74 @@
-@use '../abstracts/variables' as v;
-@use '../abstracts/mixins';
+// pages/_location.scss
 
+// =============================================================================
+// SECTION LOCATION - BARRE DE LOCALISATION
+// =============================================================================
+// Description : Barre affichant la localisation géographique (ex: "Paris, Belleville")
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Icône map-marker + Texte de localisation
+// Technique : Box-shadow inset + normale pour effet de profondeur
+// Responsive : Suppression de l'ombre en desktop
+// Dépendances : mixins, variables
+// Utilisation : pages/_home.scss (entre header et hero)
+// =============================================================================
+
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+
+// =============================================================================
+// BLOC LOCATION
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : location
+// -----------------------------------------------------------------------------
+// Description : Barre de localisation horizontale centrée
+// Layout : Flexbox pour centrage de l'icône et du texte
+// Hauteur : 50px fixe pour cohérence visuelle
+// Background : Gris clair (grey2) pour distinction du header et hero
+// Shadow : Double ombre (inset + normale) pour effet de profondeur 3D
+//          - Inset : Ombre intérieure en haut (effet enfoncé)
+//          - Normale : Ombre portée en bas (effet de relief)
+// Position/Z-index : Relative + z-index 2 pour maintenir l'ombre visible
+//                    malgré le débordement masqué par la section suivante
+// ★ TODO MIXIN : box-shadow complexe répétée (pourrait être mutualisée)
+// ★ ALIAS : Utiliser 'm' au lieu de 'mixins' pour cohérence avec autres fichiers
+// -----------------------------------------------------------------------------
 .location {
-    @include mixins.flex();
-    height: 50px;
-    gap: 16px;
-    background-color: v.$color-grey2;
-    box-shadow: inset 0 3px 0px 0 rgba(0, 0, 0, 0.1),
-    0 4px 4px 0 rgba(0, 0, 0, 0.2);
-    position: relative; // crée un contexte de position
-    z-index: 2;         // s’assure que l’ombre reste visible malgré son débordement caché par la section suivante
-    
-    &__text {
-        font-weight: v.$font-weight-medium;
-        font-size: v.$font-size-menu-section-location;
-    }
-    
-    @media screen and (min-width: 1024px) {
-        box-shadow: none;
-    }
-} 
+  @include m.flex(); 
+  height: 50px;
+  gap: 16px;
+  background-color: v.$color-grey2;
+  box-shadow: inset 0 3px 0px 0 rgba(0, 0, 0, 0.1),  // ★ EFFET : Ombre intérieure (enfoncé)
+              0 4px 4px 0 rgba(0, 0, 0, 0.2);        // ★ EFFET : Ombre portée (relief)
+  position: relative; // ★ CONTEXTE : Crée un contexte de positionnement pour z-index
+  z-index: 2;         // ★ TECHNIQUE : Maintient l'ombre visible au-dessus de la section suivante
+
+  // ---------------------------------------------------------------------------
+  // Élément : location__text
+  // ---------------------------------------------------------------------------
+  // Description : Texte de localisation (ville, quartier)
+  // Typographie : Taille menu-section-location (16px), graisse medium (500)
+  // Note : L'icône est gérée directement en HTML (FontAwesome)
+  // ---------------------------------------------------------------------------
+  &__text {
+    font-weight: v.$font-weight-medium;
+    font-size: v.$font-size-menu-section-location;
+  }
+
+
+  // ===========================================================================
+  // RESPONSIVE - DESKTOP
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Desktop (1024px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Suppression de l'effet de profondeur en desktop
+  // Raison : Design plus épuré sur grands écrans
+  // ---------------------------------------------------------------------------
+  @media screen and (min-width: 1024px) {
+    box-shadow: none; // ★ DESIGN : Ombre retirée pour style flat desktop
+  }
+}

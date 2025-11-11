@@ -1,0 +1,227 @@
+// components/_menu-item.scss
+
+// =============================================================================
+// COMPOSANT MENU-ITEM - CARTE PLAT DE RESTAURANT
+// =============================================================================
+// Description : Carte de plat avec animation de validation au clic/tap
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Titre + Détails + Prix avec zone de validation coulissante
+// Technique : Checkbox cachée + label pour interaction sans JavaScript
+// Animation : Apparition de la zone de check verte par translation (translateX)
+//             Texte tronqué avec ellipsis (...) si débordement lors de l'animation
+// Dépendances : mixins, variables
+// Utilisation : pages/_menu.scss (listes de plats par section)
+// =============================================================================
+
+@use '../abstracts/mixins' as m;
+@use '../abstracts/variables' as v;
+
+
+// =============================================================================
+// BLOC MENU-ITEM
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : menu-item
+// -----------------------------------------------------------------------------
+// Description : Conteneur principal de la carte de plat
+// Position : Relative pour positionnement absolu du prix
+// Layout : Flexbox pour disposition des éléments internes
+// Apparence : Fond blanc avec coins arrondis
+// Overflow : Hidden pour masquer la zone de check hors écran (translateX 100%)
+// ★ TODO VARIABLE : border-radius répété (même valeur que cards)
+// -----------------------------------------------------------------------------
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: v.$color-white;
+  border-radius: 15px;
+  overflow: hidden;
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__toggle
+  // ---------------------------------------------------------------------------
+  // Description : Checkbox cachée gérant l'état sélectionné du plat
+  // Display : none mais fonctionnelle via le sélecteur :checked
+  // États gérés :
+  //   - :checked → Affiche la zone de validation (translateX 0)
+  //   - :checked → Réduit la largeur du contenu pour forcer l'ellipsis
+  // ★ TECHNIQUE : Pattern checkbox + label pour interaction pure CSS
+  // ---------------------------------------------------------------------------
+  &__toggle {
+    display: none;
+  
+    // État coché : Affichage de la zone de validation verte
+    &:checked + .menu-item__label .menu-item__check {
+      transform: translateX(0);
+    }
+  
+    // État coché : Réduction de la largeur du contenu pour le check ET le prix
+    &:checked + .menu-item__label .menu-item__content {
+      max-width: calc(100% - 59px - 40px - 13.5px); // ★ CALCUL : Total - check (59px) - prix (~40px) - padding prix (13.5px)
+    }
+  
+    // État coché : Le titre est tronqué si trop long
+    &:checked + .menu-item__label .menu-item__title {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  
+    // État coché : Les détails sont tronqués si trop longs
+    &:checked + .menu-item__label .menu-item__details {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__label
+  // ---------------------------------------------------------------------------
+  // Description : Label cliquable englobant tout le contenu du plat
+  // Layout : Flexbox pour répartition espace entre contenu et check
+  // Dimensions : Hauteur fixe 69px pour uniformité entre les cartes
+  // Cursor : pointer pour indiquer l'interactivité
+  // Position : Relative pour positionnement absolu du prix
+  // ---------------------------------------------------------------------------
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 69px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__content
+  // ---------------------------------------------------------------------------
+  // Description : Conteneur du texte (titre + détails)
+  // Padding : 13.5px pour espacement interne
+  // Flex : 1 pour occuper tout l'espace disponible
+  // Min-width : 0 pour permettre le shrink et activer l'ellipsis
+  // Transition : max-width animée lors de l'ouverture de la zone de check
+  // ★ CRITIQUE : min-width: 0 est ESSENTIEL pour que l'ellipsis fonctionne dans un flexbox
+  // ---------------------------------------------------------------------------
+  &__content {
+    padding: 13.5px 0 13.5px 13.5px;
+    flex: 1;
+    min-width: 0;
+    max-width: calc(100% - 40px - 13.5px);
+    transition: max-width 0.4s ease;
+    overflow: hidden; // ★ AJOUT : Empêche le débordement vertical
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__title
+  // ---------------------------------------------------------------------------
+  // Description : Nom du plat (ex: "Filet de boeuf aux herbes")
+  // Typographie : Taille plate-title (18px), graisse medium (500)
+  // Ellipsis : Activé dynamiquement quand :checked via le sélecteur du toggle
+  // ★ COMPORTEMENT : Tronqué avec "..." si le texte déborde lors de l'animation
+  // ---------------------------------------------------------------------------
+  &__title {
+    font-weight: v.$font-weight-medium;
+    font-size: v.$font-size-plate-title;
+    overflow: hidden;        // ★ AJOUT : Toujours actif
+    white-space: nowrap;     // ★ AJOUT : Toujours actif
+    text-overflow: ellipsis; // ★ AJOUT : Toujours actif
+  }
+
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__info-line
+  // ---------------------------------------------------------------------------
+  // Description : Ligne d'informations (détails + prix)
+  // Layout : Flexbox avec space-between pour distribution de l'espace
+  // Structure : Détails à gauche, prix positionné en absolu
+  // Min-width : 0 pour permettre le shrink des détails
+  // ★ CRITIQUE : Nécessaire pour que les enfants puissent activer l'ellipsis
+  // ---------------------------------------------------------------------------
+  &__info-line {
+    display: flex;
+    justify-content: space-between;
+    min-width: 0; // ★ ESSENTIEL : Permet aux détails de rétrécir
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__details
+  // ---------------------------------------------------------------------------
+  // Description : Description du plat ou ingrédients
+  // Typographie : Taille plate-details (15px), graisse light (300)
+  // Flex : 1 pour occuper l'espace disponible
+  // Min-width : 0 pour permettre le shrink et l'ellipsis
+  // Ellipsis : Activé dynamiquement quand :checked
+  // ★ TECHNIQUE : Le combo flex: 1 + min-width: 0 est la clé de l'ellipsis en flexbox
+  // ---------------------------------------------------------------------------
+  &__details {
+    font-weight: v.$font-weight-light;
+    font-size: v.$font-size-plate-details;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;        // ★ AJOUT : Toujours actif
+    white-space: nowrap;     // ★ AJOUT : Toujours actif
+    text-overflow: ellipsis; // ★ AJOUT : Toujours actif
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__price
+  // ---------------------------------------------------------------------------
+  // Description : Prix du plat (ex: "25€")
+  // Position : Absolue avec décalage négatif intentionnel
+  // Typographie : Taille plate-price (15px), graisse bold (700)
+  // Positionnement : left -40px pour effet d'animation ou design spécifique
+  // Flex-shrink : 0 pour que le prix ne soit jamais rogné
+  // ★ DESIGN : Positionnement intentionnel (validé par le designer)
+  // ---------------------------------------------------------------------------
+  &__price {
+    font-weight: v.$font-weight-bold;
+    font-size: v.$font-size-plate-price;
+    position: absolute;
+    left: -40px; // ★ DESIGN INTENTIONNEL : Positionnement spécifique validé
+    bottom: 13.5px;
+    flex-shrink: 0; // ★ PROTECTION : Le prix ne doit jamais être rogné
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__check
+  // ---------------------------------------------------------------------------
+  // Description : Zone de validation verte avec icône checkmark
+  // Dimensions : 59px de large, 100% de hauteur (69px hérité du label)
+  // Background : Tertiary (vert menthe) pour feedback visuel positif
+  // Transform : translateX(100%) par défaut (masqué hors écran à droite)
+  //             translateX(0) quand :checked (glisse et devient visible)
+  // Transition : 0.4s ease pour animation fluide du glissement
+  // Border-radius : Coins arrondis à droite uniquement (cohérence avec la carte)
+  // Flex-shrink : 0 pour empêcher la réduction de largeur
+  // ★ TECHNIQUE : La zone reste hors écran et glisse lors du clic/tap
+  // ★ OPTIMISATION POSSIBLE : Utiliser @include m.flex() au lieu de display + justify + align
+  // ---------------------------------------------------------------------------
+  &__check {
+    position: relative;
+    width: 59px;
+    height: 100%;
+    background-color: v.$color-tertiary;
+    display: flex; // ★ OPTIMISATION : Pourrait être @include m.flex()
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    transform: translateX(100%); // ★ ANIMATION : État initial (masqué hors écran)
+    transition: transform 0.4s ease;
+    border-radius: 0 15px 15px 0; // ★ DESIGN : Coins arrondis droite uniquement
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu-item__check-icon
+  // ---------------------------------------------------------------------------
+  // Description : Icône checkmark (✓) dans la zone de validation
+  // Couleur : Blanc pour contraste sur fond vert menthe
+  // Taille : 20px pour bonne visibilité et équilibre visuel
+  // ★ TODO VARIABLE : color: white → v.$color-white
+  // ---------------------------------------------------------------------------
+  &__check-icon {
+    color: white; // ★ TODO VARIABLE : Remplacer par v.$color-white
+    font-size: 20px;
+  }
+}

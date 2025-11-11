@@ -1,69 +1,157 @@
 // abstracts/_variables.scss
-// Centralise toutes les valeurs du design system (couleurs, tailles, espacements...)
-// Seul fichier où les valeurs brutes (px, %, #hex) sont autorisées
-// Importé en premier dans main.scss
-// Utilisé par : tous les fichiers du projet
+
+// =============================================================================
+// DESIGN SYSTEM - VARIABLES GLOBALES
+// =============================================================================
+// Description : Centralisation de toutes les valeurs du design system
+// Règle : Seul fichier autorisant les valeurs brutes (px, %, #hex, rgba...)
+// Import : En premier dans main.scss pour disponibilité globale
+// Utilisation : Tous les fichiers du projet
+// =============================================================================
 
 
-// Font Family
+// =============================================================================
+// TYPOGRAPHIE
+// =============================================================================
 
+// -----------------------------------------------------------------------------
+// Familles de polices
+// -----------------------------------------------------------------------------
+// Primary : Police principale du projet (texte courant, UI)
+// Secondary : Police décorative/branding (titres, éléments distinctifs)
+// -----------------------------------------------------------------------------
 $font-family-primary: 'Roboto', sans-serif;
 $font-family-secondary: 'Shrikhand', sans-serif;
 
-// Tailles de texte
+// -----------------------------------------------------------------------------
+// Tailles de police
+// -----------------------------------------------------------------------------
+// Organisation : Sections, paragraphes, boutons, footer, menus, plats
+// Unité : px (base pour conversions rem ultérieures)
+// -----------------------------------------------------------------------------
 
+// Titres de sections
 $font-size-section-title: 24px;
 $font-size-section-title-desktop: 40px;
+$font-size-section-title-2: 18px;
+
+// Texte courant
 $font-size-paragraph: 18px;
 $font-size-button: 16px;
 $font-size-footer: 16px;
-$font-size-section-title-2: 18px;
-$font-size-plate-price: 15px;
-$font-size-plate-title: 18px;
-$font-size-plate-details: 15px;
-$font-size-restaurant-location: 17px;
+
+// Menu et localisation
 $font-size-menu-section-title: 16px;
 $font-size-menu-section-location: 16px;
+$font-size-restaurant-location: 17px;
 
-// Font weight
+// Plats (cartes restaurant)
+$font-size-plate-title: 18px;
+$font-size-plate-details: 15px;
+$font-size-plate-price: 15px;
 
+// -----------------------------------------------------------------------------
+// Graisses de police (Font weights)
+// -----------------------------------------------------------------------------
+// Light : Texte léger/secondaire
+// Regular : Texte standard/corps de texte
+// Medium : Accentuation modérée
+// Bold : Titres et emphase forte
+// -----------------------------------------------------------------------------
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 
 
+// =============================================================================
+// COULEURS
+// =============================================================================
 
-// Couleurs principales
-
-// Colors
+// -----------------------------------------------------------------------------
+// Palette principale (Branding)
+// -----------------------------------------------------------------------------
+// Primary : Violet principal (CTA, éléments clés)
+// Secondary : Rose complémentaire (dégradés, accents)
+// Tertiary : Vert menthe (badges, statuts "Nouveau")
+// -----------------------------------------------------------------------------
 $color-primary: #9356DC;
 $color-secondary: #FF79DA;
 $color-tertiary: #99E2D0;
+
+// -----------------------------------------------------------------------------
+// Couleurs neutres
+// -----------------------------------------------------------------------------
+// Black : Texte principal et éléments sombres
+// White : Arrière-plans clairs et texte sur fonds sombres
+// Grey : Texte secondaire et bordures
+// Grey2 : Arrière-plans gris très clair
+// Grey-icon : Icônes désactivées ou secondaires
+// Bg : Couleur de fond par défaut des sections
+// -----------------------------------------------------------------------------
 $color-black: #101010;
-$color-bg: #f6f6f6;
 $color-white: #fff;
 $color-grey: #353535;
-$color-grey-icon: #7E7E7E;
 $color-grey2: #EAEAEA;
+$color-grey-icon: #7E7E7E;
+$color-bg: #f6f6f6;
+
+// -----------------------------------------------------------------------------
+// Couleurs sémantiques
+// -----------------------------------------------------------------------------
+// Green-font : Texte vert pour statuts positifs
+// -----------------------------------------------------------------------------
 $color-green-font: #008766;
 
+// -----------------------------------------------------------------------------
+// Couleurs thématiques (Loader)
+// -----------------------------------------------------------------------------
+// Pepper-inside : Intérieur du poivron (rouge foncé)
+// Pepper-outside : Extérieur du poivron (rouge vif)
+// Pepper-tail : Queue du poivron (vert translucide)
+// -----------------------------------------------------------------------------
 $color-pepper-inside: rgba(94, 3, 18, 0.904);
 $color-pepper-outside: rgba(201, 0, 33, 0.932);
 $color-pepper-tail: rgba(0, 201, 27, 0.288);
 
 
-// Buttons 
+// =============================================================================
+// COMPOSANTS - BOUTONS
+// =============================================================================
 
-$btn-width: 186px; 
+// -----------------------------------------------------------------------------
+// Dimensions
+// -----------------------------------------------------------------------------
+// Width : Largeur standard des boutons principaux
+// Height : Hauteur standard des boutons principaux
+// Border-radius : Arrondi des coins (demi-hauteur pour effet pilule)
+// -----------------------------------------------------------------------------
+$btn-width: 186px;
 $btn-height: 50px;
 $btn-border-radius: 25px;
+
+// -----------------------------------------------------------------------------
+// Couleurs et apparences
+// -----------------------------------------------------------------------------
+// Color : Couleur du texte des boutons
+// Bg-default : Dégradé de fond par défaut (primary → secondary)
+// Bg-hover : Overlay blanc semi-transparent au survol (effet de luminosité)
+// -----------------------------------------------------------------------------
 $btn-color: white;
 $btn-bg-default: linear-gradient(0deg, #9356DC 0%, #FF79DA 100%);
-$btn-bg-hover: rgba(255, 255, 255, 0.15); // Overlay blanc 15%
+$btn-bg-hover: rgba(255, 255, 255, 0.15);
+
+// -----------------------------------------------------------------------------
+// Ombres
+// -----------------------------------------------------------------------------
+// Shadow-default : Ombre portée de base (profondeur modérée)
+// Shadow-hover : Ombre portée au survol (profondeur accentuée)
+// ★ OPTIMISATION : Valeurs précalculées pour éviter les calculs en temps réel
+// -----------------------------------------------------------------------------
 $btn-shadow-default: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
 $btn-shadow-hover: 0 4px 15px 0 rgba(0, 0, 0, 0.35);
 
 
 
-
+$restaurant-hero-height-mobile: 275px;
+$restaurant-hero-height-desktop: 383px;

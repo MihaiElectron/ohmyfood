@@ -1,44 +1,86 @@
 // abstracts/_mixins.scss
-// Mixins génériques et techniques réutilisables
-// Outils bas niveau (typography, flexbox, transitions, breakpoints...)
-// Ne contient PAS de styles spécifiques au projet
-// Utilisé par : _typography.scss, components/, layout/
+
+// =============================================================================
+// MIXINS GÉNÉRIQUES ET TECHNIQUES RÉUTILISABLES
+// =============================================================================
+// Description : Outils bas niveau pour la mise en page, la typographie, 
+//               les interactions et le responsive design
+// Scope : Ne contient PAS de styles spécifiques au projet
+// Utilisation : _typography.scss, components/, layout/
+// Dépendances : variables
+// =============================================================================
 
 @use 'variables' as v;
 
-// ==========================================
+
+// =============================================================================
 // LAYOUT & POSITIONING
-// ==========================================
+// =============================================================================
 
+// -----------------------------------------------------------------------------
+// Mixin : flex
+// -----------------------------------------------------------------------------
+// Description : Configure un conteneur flexbox avec tous ses paramètres
+// Paramètres :
+//   $direction     - Orientation des éléments (row | column | row-reverse | column-reverse)
+//   $justify       - Alignement sur l'axe principal (flex-start | center | flex-end | space-between | space-around | space-evenly)
+//   $align         - Alignement sur l'axe secondaire (flex-start | center | flex-end | stretch | baseline)
+//   $wrap          - Retour à la ligne (nowrap | wrap | wrap-reverse)
+//   $align-content - Alignement des lignes multiples (flex-start | center | flex-end | space-between | space-around | stretch)
+// Utilisation : @include flex(column, flex-start, stretch);
+// -----------------------------------------------------------------------------
 @mixin flex(
-    $direction: row,
-    $justify: center,
-    $align: center,
-    $wrap: nowrap,
-    $align-content: center
+  $direction: row,
+  $justify: center,
+  $align: center,
+  $wrap: nowrap,
+  $align-content: center
 ) {
-    display: flex;              // Valeur CSS fixe (toujours "flex")
-    flex-direction: $direction; // Valeur variable $ (row, column, etc.)
-    justify-content: $justify;
-    align-items: $align;
-    flex-wrap: $wrap;
-    align-content: $align-content;
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+  align-content: $align-content;
 }
 
-// ==========================================
+
+// =============================================================================
 // TYPOGRAPHY UTILITIES
-// ==========================================
+// =============================================================================
 
+// -----------------------------------------------------------------------------
+// Mixin : typography
+// -----------------------------------------------------------------------------
+// Description : Définit les propriétés typographiques de base
+// Paramètres :
+//   $size        - Taille de police (px | rem | em)
+//   $weight      - Graisse de police (100-900 | normal | bold)
+//   $line-height - Hauteur de ligne (valeur sans unité recommandée)
+// Utilisation : @include typography(1.5rem, 600, 1.4);
+// -----------------------------------------------------------------------------
 @mixin typography($size, $weight: 400, $line-height: 1.2) {
-    font-size: $size;
-    font-weight: $weight;
-    line-height: $line-height;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
 }
 
-// ==========================================
-// INTERACTION
-// ==========================================
 
+// =============================================================================
+// INTERACTION
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Mixin : button-default
+// -----------------------------------------------------------------------------
+// Description : Style de bouton par défaut avec effet hover optimisé GPU
+// Paramètres :
+//   $width  - Largeur du bouton (défaut : variable globale btn-width)
+//   $height - Hauteur du bouton (défaut : variable globale btn-height)
+// Technique : Utilise un pseudo-élément ::before pour l'animation hover
+//             avec will-change et translateZ pour l'accélération GPU
+// Utilisation : @include button-default(200px, 50px);
+// -----------------------------------------------------------------------------
 @mixin button-default($width: v.$btn-width, $height: v.$btn-height) {
   width: $width;
   height: $height;
@@ -51,7 +93,10 @@
   cursor: pointer;
   box-shadow: v.$btn-shadow-default;
   overflow: hidden;
-  
+
+  // ★ OPTIMISATION : Pseudo-élément pour l'effet hover
+  // Crée une couche de fond animée pour améliorer les performances
+  // avec will-change et z-index négatif
   &::before {
     content: "";
     position: absolute;
@@ -61,23 +106,42 @@
     transition: opacity 0.3s ease;
     border-radius: inherit;
     z-index: -1;
-    will-change: opacity; // Indique au navigateur d'optimiser cette propriété
+    will-change: opacity; // Indique au navigateur d'optimiser cette propriété pour l'animation
   }
-  
+
   &:hover {
     box-shadow: v.$btn-shadow-hover;
-    transform: translateZ(0); // Force l'accélération GPU
-    
+    transform: translateZ(0); // ★ OPTIMISATION : Force l'accélération GPU pour des animations plus fluides
+
     &::before {
       opacity: 1;
     }
   }
 }
 
-// ==========================================
-// RESPONSIVE & BREAKPOINTS
-// ==========================================
+@mixin favorite-heart($size: 22px) {
+  position: relative;
+  cursor: pointer;
+  font-size: $size;
+  display: inline-block;
+  width: $size;
+  height: $size;
+}
 
+
+// =============================================================================
+// RESPONSIVE & BREAKPOINTS
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Mixin : container
+// -----------------------------------------------------------------------------
+// Description : Conteneur responsive centré avec largeur maximale et padding
+// Paramètres :
+//   $max     - Largeur maximale du conteneur (px | rem | em)
+//   $padding - Espacement latéral interne (px | rem | em)
+// Utilisation : @include container(1200px, 1.5rem);
+// -----------------------------------------------------------------------------
 @mixin container($max: 1080px, $padding: 20px) {
   max-width: $max;
   margin-left: auto;
@@ -87,4 +151,3 @@
   width: 100%;
 }
 
-  

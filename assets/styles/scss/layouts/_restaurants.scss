@@ -1,18 +1,65 @@
+// layouts/_restaurants.scss
+
+// =============================================================================
+// LAYOUT RESTAURANTS - SECTION LISTE DES RESTAURANTS
+// =============================================================================
+// Description : Section affichant la grille de cartes de restaurants
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Titre + Grille de cartes (1 colonne mobile, 2 colonnes tablet/desktop)
+// Technique : Flexbox avec wrap et calc() pour grille responsive
+// Responsive : 
+//   - Mobile : 1 colonne verticale
+//   - Tablet (768px) : 2 colonnes avec gap 20px
+//   - Desktop (1024px) : 2 colonnes avec gap 50px et conteneur centré
+// Dépendances : mixins (container, flex), variables
+// Utilisation : pages/_home.scss (section principale)
+// =============================================================================
+
 @use '../abstracts/mixins' as m;
 @use '../abstracts/variables' as v;
 
-.restaurants {
-    @include m.container;
-    background-color: v.$color-bg;
-    padding: 30px 20px;
-    padding-bottom: 66px;
 
+// =============================================================================
+// BLOC RESTAURANTS
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : restaurants
+// -----------------------------------------------------------------------------
+// Description : Conteneur principal de la section restaurants
+// Mixin : container pour max-width, centrage et padding horizontal
+// Background : Couleur de fond (bg) pour distinction visuelle
+// Padding : 30px horizontal, 66px bottom mobile pour aération
+// ★ NOTE : Le mixin container gère déjà max-width et centrage (redondance en desktop)
+// -----------------------------------------------------------------------------
+.restaurants {
+  @include m.container(1080px, 20px); 
+  background-color: v.$color-bg;
+  padding-top: 30px;   
+  padding-bottom: 66px;
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurants__title
+  // ---------------------------------------------------------------------------
+  // Description : Titre de la section "Restaurants"
+  // Typographie : Taille section-title (24px), graisse bold (700)
+  // Espacement : Margin-bottom 30px pour séparation avec la grille
+  // ---------------------------------------------------------------------------
   &__title {
     font-size: v.$font-size-section-title;
     font-weight: v.$font-weight-bold;
     margin-bottom: 30px;
   }
 
+  // ---------------------------------------------------------------------------
+  // Élément : restaurants__list
+  // ---------------------------------------------------------------------------
+  // Description : Liste (ul) contenant les cartes de restaurants
+  // Layout : Flexbox colonne mobile, wrap en tablet/desktop
+  // Reset : list-style, padding, margin à 0 pour style personnalisé
+  // Gap : 28px mobile pour espacement vertical entre cartes
+  // Width : 100% pour occupation complète du conteneur
+  // ---------------------------------------------------------------------------
   &__list {
     @include m.flex($direction: column, $align: center);
     gap: 28px;
@@ -21,36 +68,61 @@
     margin: 0;
     width: 100%;
   }
-  
+
+
+  // ===========================================================================
+  // RESPONSIVE - TABLET
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Tablet (768px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Passage en grille 2 colonnes avec wrap
+  // Layout : Flexbox wrap avec space-between pour distribution égale
+  // Gap : 35px vertical, 0px horizontal (géré par calc() des cartes)
+  // Cartes : width calc(50% - 20px) pour 2 colonnes avec espacement 40px total
+  // Max-width : 1080px pour limitation de largeur
+  // Min-width : 250px pour éviter cartes trop étroites
+  // ★ CALCUL : calc(50% - 20px) crée un gap effectif de 40px entre les 2 cartes
+  // ---------------------------------------------------------------------------
   @media screen and (min-width: 768px) {
-    
     &__list {
-        @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
-        gap: 35px 0px; // row-gap et column-gap
-        max-width: 1080px;
-      }
-    
+      @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
+      gap: 35px 0px; // ★ SYNTAXE : row-gap (vertical) column-gap (horizontal)
+      max-width: 1080px;
+    }
+
     .restaurant-card {
-        width: calc(50% - 20px); // 4 cartes par ligne avec 20px de gap
-        min-width: 250px;
+      width: calc(50% - 20px); 
+      min-width: 250px;
     }
   }
 
+
+  // ===========================================================================
+  // RESPONSIVE - DESKTOP
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Desktop (1024px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Optimisation desktop avec gap augmenté et conteneur centré
+  // Padding-bottom : Réduit à 30px pour espacement cohérent desktop
+  // Conteneur : max-width 1055px, centré avec margin auto
+  // Gap : Augmenté à 50px vertical pour plus d'aération
+  // Cartes : width calc(50% - 50px) pour gap effectif de 100px
+  // ---------------------------------------------------------------------------
   @media screen and (min-width: 1024px) {
-      padding-bottom: 30px;
-      max-width: 1055px; /* largeur maximale */
-      width: 100%;       /* occupe toute la largeur si < max-width */
-      margin: 0 auto;    /* centre horizontalement */
-      box-sizing: border-box; /* inclut padding dans la largeur */
-      &__list {
-          @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
-          gap: 50px 0px; // row-gap et column-gap
-          max-width: 1080px;
-        }
-      
-      .restaurant-card {
-          width: calc(50% - 50px); // 4 cartes par ligne avec 20px de gap
-          min-width: 250px;
-      }
+    padding-bottom: 30px;
+   
+    &__list {
+      @include m.flex($wrap: wrap, $justify: space-between, $align: stretch);
+      gap: 50px 0px; // ★ SYNTAXE : row-gap (vertical) column-gap (horizontal)
+    }
+
+    .restaurant-card {
+      width: calc(50% - 50px); // ★ CALCUL : 50% - 50px = 2 cartes avec 100px de gap total
+      min-width: 250px;
+    }
   }
 }

@@ -1,38 +1,104 @@
 // layouts/_menu.scss
+
+// =============================================================================
+// LAYOUT MENU - PAGE MENU RESTAURANT
+// =============================================================================
+// Description : Structure de la page menu avec en-tête, sections de plats et bouton commande
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : En-tête (titre + favori) + Sections de plats (Entrées/Plats/Desserts) + Bouton
+// Technique : Margin négatif pour overlap avec l'image, système de favori réutilisé
+// Responsive : Largeur adaptative avec centrage progressif (mobile → tablet → desktop)
+// Dépendances : mixins, variables
+// Utilisation : pages/menu-restaurant.html
+// =============================================================================
+
 @use '../abstracts/mixins' as m;
 @use '../abstracts/variables' as v;
 
+
+// =============================================================================
+// BLOC MENU PRINCIPAL
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : menu
+// -----------------------------------------------------------------------------
+// Description : Conteneur principal du menu avec coins arrondis supérieurs
+// Position : Relative pour contexte de positionnement
+// Margin-top : -55px pour overlap avec l'image du restaurant (effet de superposition)
+// Background : Couleur de fond (bg) pour contraste avec l'image
+// Border-radius : Coins arrondis haut uniquement pour effet "carte remontée"
+// Espacement : Padding et gap pour aération des sections
+// ★ TODO VARIABLE : border-radius 40px (valeur spécifique menu)
+// -----------------------------------------------------------------------------
 .menu {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: -55px;
-    background: v.$color-bg;
-    border-radius: 40px 40px 0 0;
-    padding: 32px 13px 40px;
-    gap: 40px;
-    
-    
-    &__header {
-        @include m.flex($justify: space-between, $align: center);
-        margin-right: 3%;
-    }
-    
-    &__title {
-        font-family: v.$font-family-secondary;
-        font-size: 28px;
-        font-weight: v.$font-weight-regular;
-        text-align: left
-      }
-        
-    &__order {
-        @include m.flex();
-        margin-top: 40px;
-    }
+  position: relative;
+  display: flex; 
+  flex-direction: column;
+  width: 100%;
+  margin-top: -55px; // ★ TECHNIQUE : Overlap avec l'image pour effet de profondeur
+  background: v.$color-bg;
+  border-radius: 40px 40px 0 0; // ★ DESIGN : Coins arrondis haut uniquement
+  padding: 32px 13px 40px;
+  gap: 40px;
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu__header
+  // ---------------------------------------------------------------------------
+  // Description : En-tête du menu avec titre du restaurant et icône favori
+  // Layout : Flexbox avec space-between pour séparer titre et favori
+  // Margin-right : 3% pour décalage visuel (ajustement fin)
+  // ---------------------------------------------------------------------------
+  &__header {
+    @include m.flex($justify: space-between, $align: center);
+    margin-right: 3%;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu__title
+  // ---------------------------------------------------------------------------
+  // Description : Nom du restaurant (ex: "La palette du goût")
+  // Font-family : Secondary (Shrikhand) pour cohérence branding
+  // Typographie : 28px, graisse regular pour élégance
+  // Alignement : Left pour positionnement naturel
+  // ★ TODO VARIABLE : font-size 28px non définie dans _variables.scss
+  // ---------------------------------------------------------------------------
+  &__title {
+    font-family: v.$font-family-secondary;
+    font-size: 28px; // ★ TODO VARIABLE : Créer $font-size-menu-title
+    font-weight: v.$font-weight-regular;
+    text-align: left;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : menu__order
+  // ---------------------------------------------------------------------------
+  // Description : Conteneur du bouton "Commander"
+  // Layout : Flexbox pour centrage du bouton
+  // Espacement : Margin-top pour séparation avec les sections de plats
+  // ---------------------------------------------------------------------------
+  &__order {
+    @include m.flex();
+    margin-top: 40px;
+  }
 }
 
-// Système de favori
+
+// =============================================================================
+// SYSTÈME DE FAVORI (RÉUTILISÉ)
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classes : restaurant__checkbox & restaurant__favorite
+// -----------------------------------------------------------------------------
+// Description : Système de favori identique à celui de _card.scss
+// Technique : Checkbox cachée + label avec icônes superposées
+// Animation : Transition scale et opacity pour effet smooth
+// ★ ARCHITECTURE : Préfixe "restaurant" au lieu de "menu" (incohérence BEM ?)
+// ★ DUPLICATION : Code identique à _card.scss, pourrait être mutualisé
+// ★ ANOMALIE : Bloc .restaurant__checkbox:checked + .restaurant__favorite dupliqué (lignes identiques)
+// -----------------------------------------------------------------------------
+
 .restaurant__checkbox {
   display: none;
 }
@@ -52,23 +118,24 @@
     transition: all 0.3s ease;
   }
 
-  // Cœur vide (par défaut)
+  // Cœur vide (état par défaut)
   .fa-regular {
     color: v.$color-grey-icon;
     opacity: 1;
     transform: scale(1);
   }
 
-  // Cœur plein avec dégradé
+  // Cœur plein avec dégradé (état actif)
   .fa-solid {
-    background: linear-gradient(0deg, v.$color-primary, v.$color-secondary);
+    background: linear-gradient(0deg, v.$color-secondary, v.$color-primary);
     background-clip: text;
+    -webkit-background-clip: text; // ★ COMPATIBILITÉ : Préfixe webkit pour Safari
     color: transparent;
     opacity: 0;
     transform: scale(0);
   }
 
-  // Effet au survol
+  // Animation au survol
   &:hover .fa-solid {
     opacity: 1;
     transform: scale(1);
@@ -80,7 +147,8 @@
   }
 }
 
-// État coché (favori activé)
+// État coché : Favori activé
+// ★ ERREUR : Ce bloc est dupliqué deux fois (identique)
 .restaurant__checkbox:checked + .restaurant__favorite {
   .fa-regular {
     opacity: 0;
@@ -93,30 +161,43 @@
   }
 }
 
+// =============================================================================
+// SECTIONS DE PLATS
+// =============================================================================
 
-// État coché (favori activé)
-.restaurant__checkbox:checked + .restaurant__favorite {
-    .fa-regular {
-      opacity: 0;
-    }
-  
-    .fa-solid {
-      opacity: 1;
-      transform: scale(1);
-    }
-}
-
+// -----------------------------------------------------------------------------
+// Classe : menu-section
+// -----------------------------------------------------------------------------
+// Description : Section de plats (Entrées, Plats, Desserts)
+// Structure : Titre avec soulignement + Liste des plats
+// Layout : Flexbox colonne avec gap pour espacement
+// ★ OPTIMISATION POSSIBLE : Utiliser @include m.flex($direction: column) + gap
+// -----------------------------------------------------------------------------
 .menu-section {
-  display: flex;
+  display: flex; 
   flex-direction: column;
   gap: 12px;
 
+  // ---------------------------------------------------------------------------
+  // Élément : menu-section__items
+  // ---------------------------------------------------------------------------
+  // Description : Conteneur de la liste des plats de la section
+  // Layout : Flexbox colonne pour empilement vertical
+  // Gap : 12px pour espacement uniforme entre les cartes de plats
+  // ---------------------------------------------------------------------------
   &__items {
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
 
+  // ---------------------------------------------------------------------------
+  // Élément : menu-section__title-wrapper
+  // ---------------------------------------------------------------------------
+  // Description : Conteneur du titre avec soulignement
+  // Layout : Flexbox colonne pour empilement titre + underline
+  // Hauteur : 27px fixe pour cohérence visuelle
+  // ---------------------------------------------------------------------------
   &__title-wrapper {
     display: flex;
     flex-direction: column;
@@ -124,137 +205,91 @@
     height: 27px;
   }
 
+  // ---------------------------------------------------------------------------
+  // Élément : menu-section__title
+  // ---------------------------------------------------------------------------
+  // Description : Titre de la section (ENTRÉES, PLATS, DESSERTS)
+  // Typographie : Taille menu-section-title (16px), graisse light (300)
+  // Style : Majuscules généralement appliquées en HTML ou via text-transform
+  // ---------------------------------------------------------------------------
   &__title {
     font-size: v.$font-size-menu-section-title;
     font-weight: v.$font-weight-light;
   }
 
+  // ---------------------------------------------------------------------------
+  // Élément : menu-section__underline
+  // ---------------------------------------------------------------------------
+  // Description : Trait de soulignement vert sous le titre de section
+  // Dimensions : 40px × 3px pour ligne fine et distinctive
+  // Couleur : Tertiary (vert menthe) pour cohérence avec la charte
+  // ---------------------------------------------------------------------------
   &__underline {
     width: 40px;
     height: 3px;
     background-color: v.$color-tertiary;
-
   }
 }
 
-.menu-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background-color: v.$color-white;
-  border-radius: 15px;
-  overflow: hidden;
 
-  &__toggle {
-    display: none;
+// =============================================================================
+// CONTENEUR RESPONSIVE
+// =============================================================================
 
-    &:checked + .menu-item__label .menu-item__check {
-      transform: translateX(0);
-    }
-
-    &:checked + .menu-item__label .menu-item__details {
-      text-overflow: ellipsis;
-      
-    }
-  }
-
-  &__label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 69px;
-    cursor: pointer;
-    position: relative; 
-  }
-
-  &__content {
-    padding: 13.5px;
-    transition: padding-right 0.4s ease;
-  }
-
-  &__title {
-    font-weight: v.$font-weight-medium;
-    font-size: v.$font-size-plate-title;
-  }
-
-  &__info-line {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__details {
-    font-weight: v.$font-weight-light;
-    font-size: v.$font-size-plate-details;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: unset;
-    max-width: none;
-    transition: all 0.3s ease;
-  }
-
-  &__price {
-    font-weight: v.$font-weight-bold;
-    font-size: v.$font-size-plate-price;
-    position: absolute;
-    left: -40px;
-    bottom: 13.5px;
-  }
-
-  &__check {
-    position: relative;
-    width: 59px;
-    height: 100%;
-    background-color: v.$color-tertiary;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    transform: translateX(100%);
-    transition: transform 0.4s ease;
-    border-radius: 0 15px 15px 0;
-  }
-
-  &__check-icon {
-    color: white;
-    font-size: 20px;
-  }
-}
-
+// -----------------------------------------------------------------------------
+// Classe : menu-container
+// -----------------------------------------------------------------------------
+// Description : Wrapper responsive pour adaptation tablet/desktop
+// Layout : Flexbox pour centrage du menu
+// Responsive : Adaptation progressive de la largeur et du fond
+// ★ ARCHITECTURE : Classe wrapper externe (hors BEM du .menu)
+// -----------------------------------------------------------------------------
 .menu-container {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 0 auto;          /* centre horizontalement */
+  margin: 0 auto;
   box-sizing: border-box;
 
-  @media screen and (min-width:768px) {
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Tablet (768px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Réduction de la largeur du menu et ajout de fond blanc global
+  // Background : Blanc sur le container pour contraste avec le menu
+  // Menu : max-width 80% avec padding latéral 5% pour marges respirantes
+  // ---------------------------------------------------------------------------
+  @media screen and (min-width: 768px) {
     background-color: v.$color-white;
-  
+
     .menu {
       max-width: 80%;
       padding-left: 5%;
       padding-right: 5%;
-    }    
+    }
   }
-  
-  @media screen and (min-width:1024px) {
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Desktop (1024px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Centrage et limitation de largeur maximale
+  // Menu : max-width 1055px, alignement centré des éléments
+  // Menu-section : width 60% pour colonnes de plats plus étroites et lisibles
+  // Gap : 24px ajouté au header pour meilleur espacement titre/favori
+  // ---------------------------------------------------------------------------
+  @media screen and (min-width: 1024px) {
     background-color: v.$color-white;
-    
+
     .menu {
       align-items: center;
-      
       max-width: 1055px;
 
       &__header {
         gap: 24px;
       }
     }
-    
+
     .menu-section {
-     width: 60%;
-    
+      width: 60%; // ★ DESIGN : Colonnes rétrécies pour lisibilité optimale
     }
   }
 }
-

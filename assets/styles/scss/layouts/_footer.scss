@@ -1,91 +1,167 @@
 // layout/_footer.scss
-// Pied de page (liens, logo Ohmyfood)
-// Structure BEM : .footer
-// Dépend de : _variables.scss, _typography.scss
-// Présent sur toutes les pages
+
+// =============================================================================
+// LAYOUT FOOTER - PIED DE PAGE
+// =============================================================================
+// Description : Pied de page avec logo et liens (partenaires, mentions légales)
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Logo Ohmyfood + 2 groupes de liens (partenaires/informations)
+// Responsive : Layout vertical mobile, horizontal desktop
+// Dépendances : mixins, variables
+// Utilisation : Présent sur toutes les pages du site
+// =============================================================================
 
 @use '../abstracts/mixins' as m;
 @use '../abstracts/variables' as v;
 
 
+// =============================================================================
+// BLOC FOOTER
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : footer
+// -----------------------------------------------------------------------------
+// Description : Conteneur principal du pied de page
+// Layout Mobile : Flexbox colonne avec alignement à gauche
+// Background : Gris foncé (color-grey) pour contraste avec le contenu
+// Espacement : Padding uniforme et gap entre les sections
+// -----------------------------------------------------------------------------
 .footer {
-    @include m.flex($direction: column, $align: flex-start);
-    background-color: v.$color-grey;
-    padding: 22px 25px;
-    gap: 16px;
+  @include m.flex($direction: column, $align: flex-start);
+  background-color: v.$color-grey;
+  padding: 22px 25px;
+  gap: 16px;
 
-    &__title {
-        font-family: v.$font-family-secondary;
-        font-size: v.$font-size-paragraph;
-        font-weight: v.$font-weight-regular;
-        color: v.$color-white;
-    }
+  // ---------------------------------------------------------------------------
+  // Élément : footer__title
+  // ---------------------------------------------------------------------------
+  // Description : Logo/nom Ohmyfood en police décorative
+  // Font-family : Secondary (Shrikhand) pour cohérence avec le branding
+  // Couleur : Blanc pour contraste sur fond gris foncé
+  // ---------------------------------------------------------------------------
+  &__title {
+    font-family: v.$font-family-secondary;
+    font-size: v.$font-size-paragraph;
+    font-weight: v.$font-weight-regular;
+    color: v.$color-white;
+  }
 
-    &__links-container {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-    }
+  // ---------------------------------------------------------------------------
+  // Élément : footer__links-container
+  // ---------------------------------------------------------------------------
+  // Description : Conteneur global des deux groupes de liens
+  // Layout : Colonne mobile, rangée desktop
+  // Gap : 7px mobile pour espacement compact
+  // ---------------------------------------------------------------------------
+  &__links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
 
-    &__links-partner {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-    }
-    
-    &__links-info {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-    }
+  // ---------------------------------------------------------------------------
+  // Élément : footer__links-partner
+  // ---------------------------------------------------------------------------
+  // Description : Groupe de liens partenaires (ex: "Devenir partenaire")
+  // Layout : Colonne mobile, rangée desktop
+  // Séparation : Permet un espacement différencié en desktop
+  // ---------------------------------------------------------------------------
+  &__links-partner {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
 
-    &__link {
-        display: flex;
-        align-items: center;
-        color: v.$color-white;
-        gap: 5px;
-        @include m.typography ($size: v.$font-size-footer, $weight: 500);
-    }
+  // ---------------------------------------------------------------------------
+  // Élément : footer__links-info
+  // ---------------------------------------------------------------------------
+  // Description : Groupe de liens informatifs (ex: "Mentions légales", "Contact")
+  // Layout : Colonne mobile, rangée desktop
+  // Gap Desktop : 16px (supérieur aux liens partenaires pour séparation visuelle)
+  // ---------------------------------------------------------------------------
+  &__links-info {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
 
-    &__icon {
-        font-size: 13px;
-        transform: scaleX(0.85);            
-        flex-shrink: 0;
-        
-    }
-
-// RESPONSIVE DESKTOP ≥ 1024px
-@media screen and (min-width: 1024px) {
-    flex-direction: row-reverse;
-    justify-content: flex-start; // Tout à droite
+  // ---------------------------------------------------------------------------
+  // Élément : footer__link
+  // ---------------------------------------------------------------------------
+  // Description : Lien individuel avec icône optionnelle
+  // Layout : Flexbox pour alignement icône + texte
+  // Couleur : Blanc pour lisibilité sur fond sombre
+  // Graisse : 500 (medium) pour liens légèrement accentués
+  // ---------------------------------------------------------------------------
+  &__link {
+    display: flex;
     align-items: center;
-    padding: 30px 66px;
-    padding-top: 66px;
-    gap: 90px; // Espace entre les liens et le titre
-    
+    color: v.$color-white;
+    gap: 5px;
+    @include m.typography($size: v.$font-size-footer, $weight: 500);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : footer__icon
+  // ---------------------------------------------------------------------------
+  // Description : Icône FontAwesome accompagnant certains liens
+  // Transform : scaleX(0.85) pour compression horizontale (ajustement visuel)
+  // Flex-shrink : 0 pour empêcher la réduction de taille sur petits écrans
+  // ★ TECHNIQUE : Le scaleX permet d'affiner l'icône sans changer sa font-size
+  // ---------------------------------------------------------------------------
+  &__icon {
+    font-size: 13px;
+    transform: scaleX(0.85);
+    flex-shrink: 0;
+  }
+
+
+  // ===========================================================================
+  // RESPONSIVE - DESKTOP
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Desktop (1024px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Transformation du layout en disposition horizontale inversée
+  // Layout : Flex-direction row-reverse pour placer le logo à droite
+  // Justification : flex-start pour aligner tout le contenu à droite
+  // Espacement : Augmentation des gaps et paddings pour aération desktop
+  // ---------------------------------------------------------------------------
+  @media screen and (min-width: 1024px) {
+    flex-direction: row-reverse; // Logo à droite, liens à gauche
+    justify-content: flex-start;
+    align-items: center;
+    padding: 66px 66px 30px 30px;
+    gap: 90px;
+
     &__title {
       text-align: start;
+      height: 27px;
     }
 
+    // Conteneur de liens : Passage en rangée horizontale
     &__links-container {
-        flex-direction: row;
-        gap: 42px;
+      flex-direction: row;
+      gap: 42px;
     }
-    
+
+    // Liens partenaires : Rangée avec espacement réduit
     &__links-partner {
       flex-direction: row;
-      gap: 8px; // Espace entre chaque lien
+      gap: 8px;
     }
-    
+
+    // Liens informatifs : Rangée avec espacement accru pour séparation
     &__links-info {
       flex-direction: row;
-      gap: 16px; // Espace entre chaque lien
+      gap: 16px;
     }
-    
+
+    // Liens : Augmentation du gap icône/texte pour lisibilité
     &__link {
       gap: 9px;
     }
   }
-        
 }
-

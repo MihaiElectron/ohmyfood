@@ -1,11 +1,31 @@
 // abstracts/_typography.scss
-// Design system typographique du projet Ohmyfood
-// Mixins sémantiques basés sur la maquette (heading-1, body-text...)
-// Utilise le mixin typography() de _mixins.scss
-// Utilisé par : components/, pages/
+
+// =============================================================================
+// DESIGN SYSTEM TYPOGRAPHIQUE
+// =============================================================================
+// Description : Styles typographiques sémantiques du projet Ohmyfood
+// Technique : Utilise le mixin typography() pour une cohérence globale
+// Application : Définit les tailles, graisses et hauteurs de ligne par défaut
+// Dépendances : mixins
+// Utilisation : components/, pages/
+// =============================================================================
 
 @use '../abstracts/mixins';
 
+
+// =============================================================================
+// TYPOGRAPHIE DE BASE
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Élément : body
+// -----------------------------------------------------------------------------
+// Description : Style typographique par défaut du document
+// Taille : 16px (taille de base pour le rem)
+// Graisse : 400 (normal/regular)
+// Hauteur de ligne : 1.2 (défaut du mixin)
+// Application : Héritée par tous les éléments enfants sauf override
+// -----------------------------------------------------------------------------
 body {
   @include mixins.typography(16px, 400);
 }

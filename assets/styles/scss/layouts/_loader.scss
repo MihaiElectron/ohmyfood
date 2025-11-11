@@ -1,13 +1,33 @@
+// components/_loader.scss
+
+// =============================================================================
+// LOADER - ÉCRAN DE CHARGEMENT ANIMÉ
+// =============================================================================
+// Description : Animation de chargement avec chef cuisinier découpant un poivron
+// Technique : SVG animé avec dégradé de fond mobile et disparition automatique
+// Durée : 3 secondes (3 cycles d'animation + fadeOut)
+// Dépendances : mixins, variables
+// =============================================================================
+
 @use '../abstracts/mixins' as m;
 @use '../abstracts/variables' as v;
 
-/**
- * LOADER - Écran de chargement animé
- * Affiche un chef cuisinier animé avec un couteau qui coupe un poivron
- */
+
+// =============================================================================
+// CONTENEUR PRINCIPAL
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : loader
+// -----------------------------------------------------------------------------
+// Description : Overlay plein écran avec dégradé animé et bordure
+// Animation : gradientMove (3 cycles) puis fadeOut (masquage final)
+// Position : Fixed, centré avec transform translate
+// Z-index : 9999 (au-dessus de tout le contenu)
+// -----------------------------------------------------------------------------
 .loader {
   position: fixed;
-  inset: 0; /* couvre tout l’écran */
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,156 +40,193 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: linear-gradient(to top, v.$color-primary, v.$color-secondary);
-  background-size: 100% 200%; // le double pour animer la montée
+  background-size: 100% 200%; // ★ OPTIMISATION : Taille double pour permettre l'animation de défilement du dégradé
   opacity: 0;
   animation: gradientMove 1s ease-in-out alternate, fadeOut 0s linear 3s forwards;
-  animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête. forwards garde l’état final (opacity: 0, visibility: hidden) après la fin
-
+  animation-iteration-count: 3;
   z-index: 9999;
-  
 
+  // ---------------------------------------------------------------------------
+  // Élément : loader__svg-wrapper
+  // ---------------------------------------------------------------------------
+  // Description : Conteneur de positionnement vertical du SVG
+  // Décalage : -35px vers le haut pour centrage visuel optimal
+  // ---------------------------------------------------------------------------
   &__svg-wrapper {
-      transform: translateY(-35px);
+    transform: translateY(-35px);
   }
 
-
+  // ---------------------------------------------------------------------------
+  // Élément : loader__svg
+  // ---------------------------------------------------------------------------
+  // Description : SVG principal contenant tous les éléments animés
+  // Échelle : 1.4 pour agrandissement visuel
+  // Interaction : pointer-events none pour désactiver les clics
+  // ---------------------------------------------------------------------------
   &__svg {
-
-    transform: scale(1.4); 
+    transform: scale(1.4);
     transform-origin: center center;
     pointer-events: none;
 
-    /**
-     * TRANCHE DE POIVRON - Apparaît après la découpe
-     * Commence à échelle Y 0 et s'affiche de haut en bas
-     */
-     #slice-pepper {
+    // -------------------------------------------------------------------------
+    // ID SVG : slice-pepper
+    // -------------------------------------------------------------------------
+    // Description : Tranche de poivron apparaissant après la découpe
+    // Animation : Croissance verticale (scaleY 0 à 1) synchronisée avec le couteau
+    // Transform-box : fill-box pour origine relative au path
+    // -------------------------------------------------------------------------
+    #slice-pepper {
       transform-box: fill-box;
       transform: scaleY(0);
       animation: pepperSlice 1s ease-in-out;
-      animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
-      
+      animation-iteration-count: 3;
+
       #slice-pepper-outside {
         fill: v.$color-pepper-outside;
       }
-      
+
       #slice-pepper-inside {
         fill: v.$color-pepper-inside;
       }
     }
 
-    /**
-     * COUTEAU - Animation de découpe rebondissante
-     */
+    // -------------------------------------------------------------------------
+    // ID SVG : knife
+    // -------------------------------------------------------------------------
+    // Description : Couteau avec mouvement de découpe rebondissant
+    // Animation : Translation et rebond pour simuler la découpe
+    // Transform-origin : center bottom pour pivot naturel
+    // -------------------------------------------------------------------------
     #knife {
       transform: translate(-50px, 0);
       transform-origin: center bottom;
-      animation: knifeBounce 1s ease-in ;
-      animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
-      
+      animation: knifeBounce 1s ease-in;
+      animation-iteration-count: 3;
+
       #knife-ext {
         fill: v.$color-grey;
       }
-      
+
       #knife-int {
         fill: v.$color-grey2;
       }
     }
 
-    /**
-     * CHEF - Personnage principal avec animations synchronisées
-     */
+    // -------------------------------------------------------------------------
+    // ID SVG : toque-haut-wrapper
+    // -------------------------------------------------------------------------
+    // Description : Conteneur du haut de toque avec rebond global
+    // Animation : Mouvement vertical synchronisé avec l'action de découpe
+    // Z-index : 10 pour superposition correcte des calques
+    // -------------------------------------------------------------------------
+    #toque-haut-wrapper {
+      transform-origin: center bottom;
+      z-index: 10;
+      animation: toqueBounce 1s ease-in-out;
+      animation-iteration-count: 3;
+    }
 
-      /**
-       * Wrapper du haut de toque - Rebond global
-       */
-      #toque-haut-wrapper {
-        transform-origin: center bottom;
-        z-index: 10;
-        animation: toqueBounce 1s ease-in-out;
-        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+    // -------------------------------------------------------------------------
+    // ID SVG : toque-haut-shadow
+    // -------------------------------------------------------------------------
+    // Description : Ombre de la toque pour effet de profondeur
+    // Technique : Translation et déformation sans blur pour performance
+    // Opacité : 0.5 pour effet d'ombre subtil
+    // -------------------------------------------------------------------------
+    #toque-haut-shadow {
+      fill: rgba(0, 0, 0, 0.5);
+      transform: translate(-5px, -5px);
+      transform-origin: center center;
+      animation: toqueDeform 1s ease-in-out;
+      animation-iteration-count: 3;
+    }
+
+    // -------------------------------------------------------------------------
+    // ID SVG : toque-haut
+    // -------------------------------------------------------------------------
+    // Description : Partie supérieure de la toque (blanche)
+    // Animation : Déformation élastique pour effet de rebond réaliste
+    // -------------------------------------------------------------------------
+    #toque-haut {
+      fill: v.$color-grey2;
+      transform-origin: center center;
+      animation: toqueDeform 1s ease-in-out;
+      animation-iteration-count: 3;
+    }
+
+    // -------------------------------------------------------------------------
+    // ID SVG : toque-bas
+    // -------------------------------------------------------------------------
+    // Description : Base de la toque avec animation verticale
+    // Synchronisation : Mouvement identique à la barbe et aux moustaches
+    // Z-index : 2 pour ordre d'empilement correct
+    // -------------------------------------------------------------------------
+    #toque-bas {
+      fill: v.$color-grey;
+      transform-origin: center bottom;
+      animation: basBounce 1s ease-in-out;
+      animation-iteration-count: 3;
+      z-index: 2;
+    }
+
+    // -------------------------------------------------------------------------
+    // ID SVG : moustaches
+    // -------------------------------------------------------------------------
+    // Description : Moustaches du chef avec animation gauche/droite distincte
+    // Technique : Rotation et mise à l'échelle pour effet comique
+    // Transform-box : fill-box pour origine relative à chaque path
+    // -------------------------------------------------------------------------
+    #moustaches {
+      fill: v.$color-black;
+      transform-origin: center bottom;
+      animation: moustachesBounce 1s ease-in-out;
+      animation-iteration-count: 3;
+      z-index: 2;
+
+      #moustache-l {
+        transform-origin: right;
+        transform-box: fill-box;
+        animation: moustache-lAnim 1s ease-in-out;
+        animation-iteration-count: 3;
       }
 
-      /**
-       * Ombre de la toque - Effet de profondeur sans blur
-       */
-      #toque-haut-shadow {
-        fill: rgba(0, 0, 0, 0.5);
-        transform: translate(-5px, -5px);
-        transform-origin: center center;
-        animation: toqueDeform 1s ease-in-out;
-        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
+      #moustache-r {
+        transform-origin: left;
+        transform-box: fill-box;
+        animation: moustache-rAnim 1s ease-in-out;
+        animation-iteration-count: 3;
       }
+    }
 
-      /**
-       * Haut de la toque (partie blanche) - Déformation élastique
-       */
-      #toque-haut {
-        fill: v.$color-grey2;
-        transform-origin: center center;
-        animation: toqueDeform 1s ease-in-out;
-        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
-      }
+    // -------------------------------------------------------------------------
+    // ID SVG : beard
+    // -------------------------------------------------------------------------
+    // Description : Barbe du chef synchronisée avec le bas de toque
+    // Animation : basBounce identique pour cohérence visuelle
+    // -------------------------------------------------------------------------
+    #beard {
+      fill: v.$color-black;
+      transform-origin: center bottom;
+      animation: basBounce 1s ease-in-out;
+      animation-iteration-count: 3;
+      z-index: 2;
+    }
 
-      /**
-       * Bas de la toque - Animation verticale synchronisée
-       */
-      #toque-bas {
-        fill: v.$color-grey;
-        transform-origin: center bottom;
-        animation: basBounce 1s ease-in-out;
-        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
-        z-index: 2;
-      }
-
-      /**
-       * Moustaches du chef - Rebond synchronisé avec le bas de toque
-       */
-      #moustaches {
-        fill: v.$color-black;
-        transform-origin: center bottom;
-        animation: moustachesBounce 1s ease-in-out; 
-        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
-        z-index: 2;
-
-        #moustache-l {
-          transform-origin: right;
-          transform-box: fill-box;   /* fait que le ‘center’ s’applique au path lui-même */
-          animation: moustache-lAnim 1s ease-in-out;
-          animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
-        }
-        
-        #moustache-r {
-          transform-origin: left;
-          transform-box: fill-box;   /* fait que le ‘center’ s’applique au path lui-même */
-          animation: moustache-rAnim 1s ease-in-out;
-          animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
-        }
-      }
-
-      /**
-       * Barbe du chef - Animation identique au bas de toque
-       */
-      #beard {
-        fill: v.$color-black;
-        transform-origin: center bottom;
-        animation: basBounce 1s ease-in-out;
-        animation-iteration-count: 3; // l’animation se répète 3 fois puis s’arrête
-        z-index: 2;
-      }
-
-    /**
-     * POIVRON - Légume à découper
-     */
+    // -------------------------------------------------------------------------
+    // ID SVG : pepper
+    // -------------------------------------------------------------------------
+    // Description : Poivron entier à découper (élément statique)
+    // Couleurs : Extérieur, intérieur et queue distincts
+    // -------------------------------------------------------------------------
     #pepper {
       #pepper-outside {
         fill: v.$color-pepper-outside;
       }
-      
+
       #pepper-inside {
         fill: v.$color-pepper-inside;
       }
-      
+
       #pepper-tail {
         fill: v.$color-pepper-tail;
       }
@@ -177,32 +234,47 @@
   }
 }
 
-/**
- * ANIMATIONS
- */
 
+// =============================================================================
+// ANIMATIONS KEYFRAMES
+// =============================================================================
 
+// -----------------------------------------------------------------------------
+// Animation : knifeBounce
+// -----------------------------------------------------------------------------
+// Description : Mouvement de découpe du couteau avec rebond
+// Durée : 1s
+// Phases : Descente rapide (0-9%), remontée avec rebond (9-40%)
+// -----------------------------------------------------------------------------
 @keyframes knifeBounce {
   0%, 100% {
     transform: translate(-50px, -25px);
   }
-  
+
   9% {
     transform: translate(-55px, 3px);
   }
-  
+
   40% {
     transform: translate(-45px, -20px);
   }
 }
 
+// -----------------------------------------------------------------------------
+// Animation : pepperSlice
+// -----------------------------------------------------------------------------
+// Description : Apparition de la tranche de poivron
+// Durée : 1s
+// Technique : Croissance verticale progressive (scaleY)
+// Timing : Débute à 10% pour synchronisation avec la découpe
+// -----------------------------------------------------------------------------
 @keyframes pepperSlice {
   0%, 10% {
     transform: scaleY(0);
   }
 
   49% {
-    transform: scaleY(1);    
+    transform: scaleY(1);
   }
 
   100% {
@@ -210,103 +282,158 @@
   }
 }
 
+// -----------------------------------------------------------------------------
+// Animation : basBounce
+// -----------------------------------------------------------------------------
+// Description : Rebond vertical du bas de toque et de la barbe
+// Durée : 1s
+// Amplitude : -8px au sommet du rebond (15%)
+// -----------------------------------------------------------------------------
 @keyframes basBounce {
   0%, 12%, 70%, 100% {
     transform: translateY(0);
   }
-  
+
   15% {
     transform: translateY(-8px);
   }
 }
 
+// -----------------------------------------------------------------------------
+// Animation : moustachesBounce
+// -----------------------------------------------------------------------------
+// Description : Mouvement vertical des moustaches (identique à basBounce)
+// Synchronisation : Aligné avec le bas de toque pour cohérence
+// -----------------------------------------------------------------------------
 @keyframes moustachesBounce {
   0%, 12%, 70%, 100% {
     transform: translateY(0);
   }
-  
+
   15% {
     transform: translateY(-8px);
   }
 }
 
+// -----------------------------------------------------------------------------
+// Animation : moustache-lAnim
+// -----------------------------------------------------------------------------
+// Description : Animation de la moustache gauche avec rotation et déformation
+// Effet : Rotation antihoraire avec aplatissement horizontal
+// Transform-origin : right (pivot à droite)
+// -----------------------------------------------------------------------------
 @keyframes moustache-lAnim {
   0%, 12%, 70%, 100% {
-    transform: rotate(0) ;
+    transform: rotate(0);
   }
-  
+
   15% {
     transform: rotate(-35deg) scaleX(1.4) scaleY(0.7);
   }
-  
+
   35% {
     transform: rotate(5deg) scaleX(1.1) scaleY(0.9);
   }
 }
 
+// -----------------------------------------------------------------------------
+// Animation : moustache-rAnim
+// -----------------------------------------------------------------------------
+// Description : Animation de la moustache droite (miroir de la gauche)
+// Effet : Rotation horaire avec aplatissement horizontal
+// Transform-origin : left (pivot à gauche)
+// -----------------------------------------------------------------------------
 @keyframes moustache-rAnim {
   0%, 12%, 70%, 100% {
-    transform: rotate(0) ;
+    transform: rotate(0);
   }
-  
+
   15% {
     transform: rotate(35deg) scaleX(1.4) scaleY(0.7);
   }
-  
+
   35% {
     transform: rotate(-5deg) scaleX(1.1) scaleY(0.9);
   }
 }
 
-
-
+// -----------------------------------------------------------------------------
+// Animation : toqueBounce
+// -----------------------------------------------------------------------------
+// Description : Rebond global du haut de toque
+// Durée : 1s
+// Effet : Montée principale (-6px) avec petits rebonds de stabilisation (+1px)
+// -----------------------------------------------------------------------------
 @keyframes toqueBounce {
   0%, 13%, 100% {
     transform: translateY(0);
   }
-  
+
   40% {
     transform: translateY(-6px);
   }
-  
+
   60%, 80% {
     transform: translateY(1px);
   }
 }
 
+// -----------------------------------------------------------------------------
+// Animation : toqueDeform
+// -----------------------------------------------------------------------------
+// Description : Déformation élastique de la toque (effet squash & stretch)
+// Durée : 1s
+// Technique : Compression (scaleY < 1) puis étirement (scaleY > 1)
+// Phases : Compression à 22%, étirement max à 60%, stabilisation à 80%
+// -----------------------------------------------------------------------------
 @keyframes toqueDeform {
   0%, 13%, 100% {
     transform: scaleY(1) scaleX(1);
   }
-  
+
   22% {
     transform: scaleY(0.85) scaleX(1.2);
   }
-  
+
   60% {
     transform: scaleY(1.35) scaleX(0.95);
   }
-  
+
   80% {
     transform: scaleY(0.95) scaleX(1.05);
   }
 }
 
+// -----------------------------------------------------------------------------
+// Animation : gradientMove
+// -----------------------------------------------------------------------------
+// Description : Déplacement du dégradé de fond de bas en haut
+// Durée : 1s (alternate, donc montée puis descente)
+// Background-size : 200% pour permettre le défilement complet
+// Opacité : Maintenue à 0.9 pendant l'animation
+// -----------------------------------------------------------------------------
 @keyframes gradientMove {
   0% {
-    background-position: 0 100% ;
+    background-position: 0 100%;
     opacity: 0.9;
   }
+
   100% {
-    background-position: 0 0% ;
+    background-position: 0 0%;
     opacity: 0.9;
   }
 }
 
-  // Animation d’opacité pour disparition
-  @keyframes fadeOut {
-    to {
-      opacity: 0;
-      visibility: hidden;
-    }
+// -----------------------------------------------------------------------------
+// Animation : fadeOut
+// -----------------------------------------------------------------------------
+// Description : Disparition finale du loader après 3 secondes
+// Durée : Instantané (0s) avec délai de 3s
+// Forwards : Maintient l'état final (masqué) après l'animation
+// -----------------------------------------------------------------------------
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
   }
+}

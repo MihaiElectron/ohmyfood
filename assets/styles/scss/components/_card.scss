@@ -1,135 +1,235 @@
 // components/_card.scss
-// Composant carte restaurant (BEM : .card)
-// Gère image, texte, badge "Nouveau", icône coeur
-// Dépend de : _variables.scss, _typography.scss
-// Utilisé dans : pages/_home.scss
 
-// Importation des mixins et variables globales
-@use '../abstracts/mixins' as m;         // Mixins réutilisables (flex, container, etc.)
-@use '../abstracts/variables' as v;      // Couleurs, tailles de police, espacements, etc.
+// =============================================================================
+// COMPOSANT CARTE RESTAURANT
+// =============================================================================
+// Description : Carte cliquable affichant un restaurant avec image, infos et favori
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Image, badge "Nouveau", nom, localisation, icône cœur animée
+// Dépendances : mixins, variables
+// Utilisation : pages/_home.scss (liste des restaurants)
+// =============================================================================
 
-// Bloc principal de la carte restaurant
+@use '../abstracts/mixins' as m;
+@use '../abstracts/variables' as v;
+
+
+// =============================================================================
+// BLOC CARTE RESTAURANT
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : restaurant-card
+// -----------------------------------------------------------------------------
+// Description : Conteneur principal de la carte restaurant
+// Position : Relative pour positionnement absolu des éléments enfants
+// Apparence : Fond blanc avec ombre portée, coins arrondis haut
+// -----------------------------------------------------------------------------
 .restaurant-card {
+  position: relative;
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); // ★ TODO MIXIN : Ombre légère pour profondeur de carte
+  
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-card__link
+  // ---------------------------------------------------------------------------
+  // Description : Lien englobant toute la carte pour navigation vers le menu
+  // Display : block pour zone cliquable étendue
+  // Héritage : Couleur et décoration héritées pour style uniforme
+  // ---------------------------------------------------------------------------
+  &__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-card__image-wrapper
+  // ---------------------------------------------------------------------------
+  // Description : Conteneur de l'image avec dimensions fixes
+  // Hauteur : 180px pour ratio uniforme entre toutes les cartes
+  // Overflow : hidden pour masquer les débordements d'image
+  // ---------------------------------------------------------------------------
+  &__image-wrapper {
     position: relative;
     width: 100%;
-    border-radius: 15px 15px 0 0;
+    height: 180px;
     overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    will-change: transform;
-  
-    &__link {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      position: relative;
-    }
-  
-    &__image-wrapper {
-      position: relative;
-      width: 100%;
-      height: 180px;
-      overflow: hidden;
-  
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-    }
-  
-    &__badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background-color: v.$color-tertiary;
-      color: v.$color-green-font;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 6px 12px;
-    }
-  
-    &__info {
-      padding: 16px 20px;
-      @include m.flex($direction: column, $align: flex-start);
-      gap: 5px;
-    }
-  
-    &__name {
-      font-size: v.$font-size-plate-title;
-      font-weight: v.$font-weight-bold;
-    }
-  
-    &__location {
-      font-size: v.$font-size-restaurant-location;
-      font-weight: v.$font-weight-light;
-      color: black;
-    }
-  
-    // Favori (système de cœur)
-    &__checkbox {
-      display: none;
-    }
-  
-    &__favorite {
-      position: absolute;
-      bottom: calc(33px - 21px / 2);
-      right: calc(33px - 22px / 2);
-      width: 22px;
-      height: 22px;
-      font-size: 22px;
-      cursor: pointer;
-  
-      i {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition: all 0.3s ease;
-      }
-  
-      .fa-regular {
-        color: v.$color-grey-icon;
-        opacity: 1;
-        transform: scale(1);
-      }
-  
-      .fa-solid {
-        background: linear-gradient(0deg, v.$color-primary, v.$color-secondary);
-        background-clip: text;
-        color: transparent;
-        opacity: 0;
-        transform: scale(0);
-      }
-      
-      &:hover .fa-solid {
-        opacity: 1;
-        transform: scale(1);
-      }
-    
-      &:hover .fa-regular {
-        opacity: 0;
-        transform: scale(0);
-      }
-    }
-  
-    // État favori activé
-    &__checkbox:checked + &__favorite {
-      .fa-regular {
-        opacity: 0;
-        transform: scale(0);
-      }
-  
-      .fa-solid {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
- 
-  
 
-    // Zone pour ajouter des styles spécifiques au desktop
-    @media screen and (min-width: 1024px) {
-        // Tu peux ajouter ici des styles pour les cartes en desktop
+    // Image du restaurant
+    // Object-fit : cover pour remplissage sans déformation
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-card__badge
+  // ---------------------------------------------------------------------------
+  // Description : Badge "Nouveau" affiché en haut à droite de l'image
+  // Position : Absolue dans le coin supérieur droit (12px de marge)
+  // Couleurs : Fond tertiary (vert menthe), texte green-font
+  // Typographie : 14px, medium (500)
+  // ---------------------------------------------------------------------------
+  &__badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: v.$color-tertiary;
+    color: v.$color-green-font;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-card__info
+  // ---------------------------------------------------------------------------
+  // Description : Zone d'informations textuelles (nom et localisation)
+  // Layout : Flexbox en colonne avec alignement à gauche
+  // Espacement : Padding interne et gap entre les enfants
+  // ---------------------------------------------------------------------------
+  &__info {
+    padding: 16px 20px;
+    @include m.flex($direction: column, $align: flex-start);
+    gap: 5px;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-card__name
+  // ---------------------------------------------------------------------------
+  // Description : Nom du restaurant (titre principal de la carte)
+  // Typographie : Taille plate-title (18px), graisse bold (700)
+  // ---------------------------------------------------------------------------
+  &__name {
+    font-size: v.$font-size-plate-title;
+    font-weight: v.$font-weight-bold;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-card__location
+  // ---------------------------------------------------------------------------
+  // Description : Localisation du restaurant (ville/quartier)
+  // Typographie : Taille restaurant-location (17px), graisse light (300)
+  // Couleur : Noir pour bon contraste malgré la graisse légère
+  // ---------------------------------------------------------------------------
+  &__location {
+    font-size: v.$font-size-restaurant-location;
+    font-weight: v.$font-weight-light;
+    color: black;
+  }
+
+
+  // ===========================================================================
+  // SYSTÈME DE FAVORI (CŒUR ANIMÉ)
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-card__checkbox
+  // ---------------------------------------------------------------------------
+  // Description : Input checkbox masqué pour gérer l'état favori
+  // Display : none mais fonctionnel via le sélecteur :checked
+  // Utilisation : Permet un toggle sans JavaScript
+  // ---------------------------------------------------------------------------
+  &__checkbox {
+    display: none;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-card__favorite
+  // ---------------------------------------------------------------------------
+  // Description : Icône cœur animée avec deux états (vide/plein)
+  // Position : Absolue en bas à droite de la carte
+  // Calcul position : Centrage via calc() pour alignement pixel-perfect
+  // Technique : Superposition de deux icônes FontAwesome avec transitions
+  // États : Regular (vide, gris) et Solid (plein, dégradé)
+  // ---------------------------------------------------------------------------
+  &__favorite {
+    position: absolute;
+    bottom: calc(33px - 21px / 2); // ★ CALCUL : Centre vertical à 33px du bas (icône 21px de haut)
+    right: calc(33px - 22px / 2);  // ★ CALCUL : Centre horizontal à 33px de la droite (icône 22px de large)
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    cursor: pointer;
+
+    // Icônes FontAwesome superposées
+    i {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 0.3s ease;
+    }
+
+    // État par défaut : Cœur vide gris
+    .fa-regular {
+      color: v.$color-grey-icon;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    // État favori : Cœur plein avec dégradé
+    // Background-clip : text pour appliquer le dégradé sur le texte uniquement
+    .fa-solid {
+      background: linear-gradient(0deg, v.$color-secondary, v.$color-primary);
+      background-clip: text;
+      -webkit-background-clip: text; // ★ COMPATIBILITÉ : Préfixe webkit nécessaire pour Safari
+      color: transparent;
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    // Animation au survol : Apparition du cœur plein
+    &:hover .fa-solid {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    &:hover .fa-regular {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // État : Favori activé (checkbox cochée)
+  // ---------------------------------------------------------------------------
+  // Description : Maintient le cœur plein après clic sur la checkbox
+  // Sélecteur : Adjacent sibling (+) pour cibler l'icône après la checkbox
+  // Persistance : L'état reste actif tant que la checkbox est cochée
+  // ---------------------------------------------------------------------------
+  &__checkbox:checked + &__favorite {
+    .fa-regular {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    .fa-solid {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
+  // ===========================================================================
+  // RESPONSIVE - DESKTOP
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Desktop (1024px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Styles spécifiques pour affichage desktop
+  // Usage : Ajouter ici les adaptations pour grands écrans si nécessaire
+  // Exemples : Hover effects supplémentaires, dimensions modifiées, grille
+  // ---------------------------------------------------------------------------
+  @media screen and (min-width: 1024px) {
+    // Styles desktop à définir selon les besoins du design
+  }
 }

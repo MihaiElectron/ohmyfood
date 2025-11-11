@@ -1,17 +1,49 @@
-// Jamais de valeurs en dur dans le code
-// Les variables centralisent tout dans
+// pages/_hero.scss
+
+// =============================================================================
+// SECTION HERO - BANNIÈRE D'ACCUEIL
+// =============================================================================
+// Description : Section d'introduction avec titre, sous-titre et CTA principal
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Titre accrocheur + Description + Bouton d'action
+// Responsive : Augmentation de la taille du titre en desktop
+// Dépendances : mixins, variables, components/buttons
+// Utilisation : pages/_home.scss (section d'ouverture)
+// =============================================================================
 
 @use '../abstracts/variables' as v;
 @use '../abstracts/mixins' as m;
 @use '../components/buttons';
 
 
+// =============================================================================
+// BLOC HERO
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : hero
+// -----------------------------------------------------------------------------
+// Description : Conteneur principal de la section hero
+// Layout : Flexbox en colonne pour empilement vertical centré
+// Background : Couleur de fond claire (bg) pour contraste avec le header
+// ★ OPTIMISATION POSSIBLE : Utiliser @include m.flex($direction: column)
+// -----------------------------------------------------------------------------
 .hero {
-    display: flex;
+    @include m.flex($direction: column);
     flex-direction: column;
     align-items: center;
     background-color: v.$color-bg;
-    
+
+    // ---------------------------------------------------------------------------
+    // Élément : hero__title
+    // ---------------------------------------------------------------------------
+    // Description : Titre principal de la page d'accueil (H1)
+    // Alignement : Centré pour impact visuel maximal
+    // Largeur : max-width 76% mobile pour adaptation au contenu
+    // Typographie : section-title (24px mobile, 40px desktop), graisse bold
+    // Espacement : Marges verticales pour aération
+    // Responsive : Taille augmentée en desktop pour plus de présence
+    // ---------------------------------------------------------------------------
     &__title {
         text-align: center;
         margin-top: 39px;
@@ -21,15 +53,16 @@
         font-weight: v.$font-weight-bold;
     }
 
-    @media screen and (min-width: 1024px) {
-        &__title {
-            font-size: v.$font-size-section-title-desktop;
-            font-weight: v.$font-weight-bold;
-            margin-top: 0.8em;
-            margin-bottom: 0.8em;
-        }
-      }
-
+    // ---------------------------------------------------------------------------
+    // Élément : hero__subtitle
+    // ---------------------------------------------------------------------------
+    // Description : Sous-titre explicatif (accroche marketing)
+    // Alignement : Centré pour cohérence avec le titre
+    // Largeur : max-width 88% mobile (plus large que le titre)
+    // Typographie : Taille paragraph (18px), graisse light (300)
+    // Couleur : Gris pour hiérarchie visuelle (secondaire au titre)
+    // Espacement : Margin-bottom pour séparation avec le bouton
+    // ---------------------------------------------------------------------------
     &__subtitle {
         text-align: center;
         @include m.typography(v.$font-size-paragraph, v.$font-weight-light);
@@ -37,15 +70,53 @@
         margin-bottom: 30px;
         max-width: 88%;
     }
-}
 
-.button {
+    // ===========================================================================
+    // RESPONSIVE - DESKTOP
+    // ===========================================================================
+
+    // ---------------------------------------------------------------------------
+    // Breakpoint : Desktop (1024px et plus)
+    // ---------------------------------------------------------------------------
+    // Description : Ajustements typographiques pour grands écrans
+    // Titre : Taille augmentée à 40px pour plus d'impact
+    // Marges : Utilisation d'unités em pour proportionnalité avec la font-size
+    // ---------------------------------------------------------------------------
+    @media screen and (min-width: 1024px) {
+        &__title {
+        font-size: v.$font-size-section-title-desktop;
+        font-weight: v.$font-weight-bold;
+        margin-top: 0.8em;    // ★ TECHNIQUE : em pour proportionnalité avec font-size
+        margin-bottom: 0.8em; // ★ TECHNIQUE : em pour proportionnalité avec font-size
+        }
+    }
+    }
+
+
+    // =============================================================================
+    // BOUTON HERO (HORS BEM)
+    // =============================================================================
+
+    // -----------------------------------------------------------------------------
+    // Classe : button
+    // -----------------------------------------------------------------------------
+    // Description : Bouton CTA principal de la section hero
+    // Espacement : Margin-bottom pour séparation avec la section suivante
+    // ★ ARCHITECTURE : Sélecteur hors BEM (devrait être .hero__button)
+    // ★ PROBLÈME : Ce sélecteur est global et affecte TOUS les .button du site
+    // ---------------------------------------------------------------------------
+    .button {
     margin-bottom: 57px;
     }
 
+    // ---------------------------------------------------------------------------
+    // Breakpoint : Desktop (1024px et plus)
+    // ---------------------------------------------------------------------------
+    // Description : Réduction du margin-bottom en desktop
+    // ★ MÊME PROBLÈME : Affecte tous les boutons du site, pas juste le hero
+    // ---------------------------------------------------------------------------
     @media screen and (min-width: 1024px) {
-        .button {
-            margin-bottom: 30px;
-        }
-    
+    .button {
+        margin-bottom: 30px;
+    }
 }

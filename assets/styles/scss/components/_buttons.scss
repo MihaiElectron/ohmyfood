@@ -1,19 +1,47 @@
 // components/_button.scss
-// Composant bouton réutilisable (BEM : .btn)
-// Styles + variantes + états (hover, active...)
-// Dépend de : _variables.scss, _mixins.scss
-// Utilisé dans : toutes les pages
 
-@use '../abstracts/mixins';
+// =============================================================================
+// COMPOSANT BOUTON RÉUTILISABLE
+// =============================================================================
+// Description : Styles de boutons avec variantes de tailles
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : .button (défaut 186px), .button--large (218px)
+// Dépendances : mixins, variables (via mixins)
+// Utilisation : Toutes les pages du projet
+// =============================================================================
 
+@use '../abstracts/mixins' as m;
+
+
+// =============================================================================
+// BLOC BOUTON
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : button
+// -----------------------------------------------------------------------------
+// Description : Style de bouton par défaut
+// Mixin : button-default() avec dimensions standard
+// Largeur : 186px (définie dans $btn-width de _variables.scss)
+// Hauteur : 50px (définie dans $btn-height de _variables.scss)
+// Fonctionnalités : Dégradé, ombre portée, effet hover avec overlay blanc
+// États : 
+//   - Défaut : Dégradé primary→secondary avec ombre légère
+//   - Hover : Overlay blanc 15% + ombre accentuée + accélération GPU
+// -----------------------------------------------------------------------------
 .button {
-  @include mixins.button-default(); // largeur par défaut : 162px
-  
+  @include m.button-default();
+
+  // ---------------------------------------------------------------------------
+  // Modificateur : button--large
+  // ---------------------------------------------------------------------------
+  // Description : Variante large pour CTA principaux
+  // Override : Largeur portée à 218px (+32px par rapport au défaut)
+  // Hauteur : 50px (inchangée, héritée du mixin)
+  // Cas d'usage : Boutons d'action primaires, soumission de formulaires
+  // Exemple HTML : <button class="button button--large">Commander</button>
+  // ---------------------------------------------------------------------------
   &--large {
-    @include mixins.button-default(218px);
-  }
-  
-  &--medium {
-    @include mixins.button-default;
+    @include m.button-default(218px);
   }
 }

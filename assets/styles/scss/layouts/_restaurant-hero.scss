@@ -1,19 +1,74 @@
+// layouts/_restaurant-hero.scss
+
+// =============================================================================
+// LAYOUT RESTAURANT-HERO - IMAGE BANNIÈRE RESTAURANT
+// =============================================================================
+// Description : Bannière d'image pleine largeur en haut de la page menu restaurant
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Conteneur + Image en object-fit cover
+// Technique : Hauteur fixe mobile/desktop avec image adaptative
+// Responsive : Hauteur augmentée en desktop (275px → 383px)
+// Dépendances : mixins, variables
+// Utilisation : pages/menu-restaurant.html (au-dessus du bloc .menu)
+// Note : Cette image est "chevauchée" par le .menu (margin-top: -55px)
+// =============================================================================
+
 @use '../abstracts/mixins' as m;
 @use '../abstracts/variables' as v;
 
-// layouts/_restaurant-hero.scss
-.restaurant-hero {
-    display: flex;
-    width: 100%;
-    height: 275px;
-    
-    &__image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;        
-    }
 
-    @media screen and (min-width: 1024px) {
-        height: 383px;
-    }
+// =============================================================================
+// BLOC RESTAURANT-HERO
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : restaurant-hero
+// -----------------------------------------------------------------------------
+// Description : Conteneur de l'image bannière du restaurant
+// Layout : Flexbox pour gestion simple de l'image enfant
+// Dimensions : Largeur 100% (pleine largeur), hauteur fixe selon breakpoint
+// Hauteur mobile : 275px pour ratio adapté aux mobiles
+// Hauteur desktop : 383px pour plus de présence visuelle sur grands écrans
+// ★ RELATION : Le bloc .menu possède un margin-top: -55px pour overlap
+// ★ TODO VARIABLE : Hauteurs fixes (275px, 383px) pourraient être centralisées
+// -----------------------------------------------------------------------------
+.restaurant-hero {
+  display: flex;
+  width: 100%;
+  height: v.$restaurant-hero-height-mobile;
+
+  // ---------------------------------------------------------------------------
+  // Élément : restaurant-hero__image
+  // ---------------------------------------------------------------------------
+  // Description : Image du restaurant (photo de plat ou du lieu)
+  // Dimensions : 100% width et height pour remplissage total du conteneur
+  // Object-fit : cover pour remplissage sans déformation
+  //              - L'image garde ses proportions
+  //              - Elle est recadrée si nécessaire pour remplir l'espace
+  //              - Empêche les bandes noires ou la déformation
+  // ★ TECHNIQUE : object-fit: cover est essentiel pour des images responsive
+  //               de qualité quelle que soit leur ratio original
+  // ---------------------------------------------------------------------------
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // ★ ESSENTIEL : Maintient le ratio et remplit l'espace
+  }
+
+
+  // ===========================================================================
+  // RESPONSIVE - DESKTOP
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Desktop (1024px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Augmentation de la hauteur pour plus d'impact visuel
+  // Hauteur : 383px (+108px par rapport au mobile)
+  // Ratio : Environ 1.39 (383/275) d'augmentation
+  // ★ DESIGN : Permet de valoriser davantage les photos sur grands écrans
+  // ---------------------------------------------------------------------------
+  @media screen and (min-width: 1024px) {
+    height: v.$restaurant-hero-height-desktop;
+  }
 }

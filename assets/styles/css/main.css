@@ -1,11 +1,9 @@
-@charset "UTF-8";
 body {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.2;
 }
 
-/* 1. Reset global des marges et paddings, et box-sizing */
 *,
 *::before,
 *::after {
@@ -14,24 +12,20 @@ body {
   box-sizing: border-box;
 }
 
-/* 2. Listes */
 ul, ol {
   list-style: none;
 }
 
-/* 3. Images et vidéos */
 img, video {
   max-width: 100%;
   display: block;
 }
 
-/* 4. Liens */
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* 5. Formulaires */
 input, button, textarea, select {
   font-family: inherit;
   font-size: inherit;
@@ -41,6 +35,8 @@ body {
   margin: 0;
   font-family: "Roboto", sans-serif;
   background-color: #f6f6f6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .header {
@@ -61,8 +57,6 @@ body {
   padding: 5.2px;
   top: 17px;
   left: 17px;
-  top: 17px;
-  left: 17px;
   color: #353535;
 }
 .header__logo {
@@ -74,6 +68,7 @@ body {
   align-content: center;
   width: 162px;
   height: 44px;
+  padding-bottom: 10px;
 }
 @media screen and (min-width: 1024px) {
   .header {
@@ -190,45 +185,14 @@ body {
 .button--large:hover::before {
   opacity: 1;
 }
-.button--medium {
-  width: 186px;
-  height: 50px;
-  position: relative;
+
+.hero {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
   align-content: center;
-  border: none;
-  border-radius: 25px;
-  background: linear-gradient(0deg, #9356DC 0%, #FF79DA 100%);
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-}
-.button--medium::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.15);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  border-radius: inherit;
-  z-index: -1;
-  will-change: opacity;
-}
-.button--medium:hover {
-  box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.35);
-  transform: translateZ(0);
-}
-.button--medium:hover::before {
-  opacity: 1;
-}
-
-.hero {
-  display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f6f6f6;
@@ -241,14 +205,6 @@ body {
   font-size: 24px;
   font-weight: 700;
 }
-@media screen and (min-width: 1024px) {
-  .hero__title {
-    font-size: 40px;
-    font-weight: 700;
-    margin-top: 0.8em;
-    margin-bottom: 0.8em;
-  }
-}
 .hero__subtitle {
   text-align: center;
   font-size: 18px;
@@ -257,6 +213,14 @@ body {
   color: #353535;
   margin-bottom: 30px;
   max-width: 88%;
+}
+@media screen and (min-width: 1024px) {
+  .hero__title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+  }
 }
 
 .button {
@@ -319,12 +283,12 @@ body {
     flex-direction: row-reverse;
     justify-content: flex-start;
     align-items: center;
-    padding: 30px 66px;
-    padding-top: 66px;
+    padding: 66px 66px 30px 30px;
     gap: 90px;
   }
   .footer__title {
     text-align: start;
+    height: 27px;
   }
   .footer__links-container {
     flex-direction: row;
@@ -448,7 +412,7 @@ body {
   padding-right: 20px;
   width: 100%;
   background-color: #f6f6f6;
-  padding: 30px 20px;
+  padding-top: 30px;
   padding-bottom: 66px;
 }
 .restaurants__title {
@@ -488,10 +452,6 @@ body {
 @media screen and (min-width: 1024px) {
   .restaurants {
     padding-bottom: 30px;
-    max-width: 1055px; /* largeur maximale */
-    width: 100%; /* occupe toute la largeur si < max-width */
-    margin: 0 auto; /* centre horizontalement */
-    box-sizing: border-box; /* inclut padding dans la largeur */
   }
   .restaurants__list {
     display: flex;
@@ -501,7 +461,6 @@ body {
     flex-wrap: wrap;
     align-content: center;
     gap: 50px 0px;
-    max-width: 1080px;
   }
   .restaurants .restaurant-card {
     width: calc(50% - 50px);
@@ -586,9 +545,9 @@ body {
   transform: scale(1);
 }
 .restaurant__favorite .fa-solid {
-  background: linear-gradient(0deg, #9356DC, #FF79DA);
+  background: linear-gradient(0deg, #FF79DA, #9356DC);
+  background-clip: text;
   -webkit-background-clip: text;
-          background-clip: text;
   color: transparent;
   opacity: 0;
   transform: scale(0);
@@ -605,14 +564,6 @@ body {
 .restaurant__checkbox:checked + .restaurant__favorite .fa-regular {
   opacity: 0;
   transform: scale(0);
-}
-.restaurant__checkbox:checked + .restaurant__favorite .fa-solid {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.restaurant__checkbox:checked + .restaurant__favorite .fa-regular {
-  opacity: 0;
 }
 .restaurant__checkbox:checked + .restaurant__favorite .fa-solid {
   opacity: 1;
@@ -645,83 +596,11 @@ body {
   background-color: #99E2D0;
 }
 
-.menu-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 15px;
-  overflow: hidden;
-}
-.menu-item__toggle {
-  display: none;
-}
-.menu-item__toggle:checked + .menu-item__label .menu-item__check {
-  transform: translateX(0);
-}
-.menu-item__toggle:checked + .menu-item__label .menu-item__details {
-  text-overflow: ellipsis;
-}
-.menu-item__label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 69px;
-  cursor: pointer;
-  position: relative;
-}
-.menu-item__content {
-  padding: 13.5px;
-  transition: padding-right 0.4s ease;
-}
-.menu-item__title {
-  font-weight: 500;
-  font-size: 18px;
-}
-.menu-item__info-line {
-  display: flex;
-  justify-content: space-between;
-}
-.menu-item__details {
-  font-weight: 300;
-  font-size: 15px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: unset;
-  max-width: none;
-  transition: all 0.3s ease;
-}
-.menu-item__price {
-  font-weight: 700;
-  font-size: 15px;
-  position: absolute;
-  left: -40px;
-  bottom: 13.5px;
-}
-.menu-item__check {
-  position: relative;
-  width: 59px;
-  height: 100%;
-  background-color: #99E2D0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  transform: translateX(100%);
-  transition: transform 0.4s ease;
-  border-radius: 0 15px 15px 0;
-}
-.menu-item__check-icon {
-  color: white;
-  font-size: 20px;
-}
-
 .menu-container {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 0 auto; /* centre horizontalement */
+  margin: 0 auto;
   box-sizing: border-box;
 }
 @media screen and (min-width: 768px) {
@@ -750,13 +629,9 @@ body {
   }
 }
 
-/**
- * LOADER - Écran de chargement animé
- * Affiche un chef cuisinier animé avec un couteau qui coupe un poivron
- */
 .loader {
   position: fixed;
-  inset: 0; /* couvre tout l’écran */
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -782,37 +657,6 @@ body {
   transform: scale(1.4);
   transform-origin: center center;
   pointer-events: none;
-  /**
-   * TRANCHE DE POIVRON - Apparaît après la découpe
-   * Commence à échelle Y 0 et s'affiche de haut en bas
-   */
-  /**
-   * COUTEAU - Animation de découpe rebondissante
-   */
-  /**
-   * CHEF - Personnage principal avec animations synchronisées
-   */
-  /**
-   * Wrapper du haut de toque - Rebond global
-   */
-  /**
-   * Ombre de la toque - Effet de profondeur sans blur
-   */
-  /**
-   * Haut de la toque (partie blanche) - Déformation élastique
-   */
-  /**
-   * Bas de la toque - Animation verticale synchronisée
-   */
-  /**
-   * Moustaches du chef - Rebond synchronisé avec le bas de toque
-   */
-  /**
-   * Barbe du chef - Animation identique au bas de toque
-   */
-  /**
-   * POIVRON - Légume à découper
-   */
 }
 .loader__svg #slice-pepper {
   transform-box: fill-box;
@@ -873,13 +717,13 @@ body {
 }
 .loader__svg #moustaches #moustache-l {
   transform-origin: right;
-  transform-box: fill-box; /* fait que le ‘center’ s’applique au path lui-même */
+  transform-box: fill-box;
   animation: moustache-lAnim 1s ease-in-out;
   animation-iteration-count: 3;
 }
 .loader__svg #moustaches #moustache-r {
   transform-origin: left;
-  transform-box: fill-box; /* fait que le ‘center’ s’applique au path lui-même */
+  transform-box: fill-box;
   animation: moustache-rAnim 1s ease-in-out;
   animation-iteration-count: 3;
 }
@@ -900,9 +744,6 @@ body {
   fill: rgba(0, 201, 27, 0.288);
 }
 
-/**
- * ANIMATIONS
- */
 @keyframes knifeBounce {
   0%, 100% {
     transform: translate(-50px, -25px);
@@ -1007,11 +848,10 @@ body {
 .restaurant-card {
   position: relative;
   width: 100%;
-  border-radius: 15px 15px 0 0;
+  border-radius: 15px;
   overflow: hidden;
   background-color: #fff;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  will-change: transform;
 }
 .restaurant-card__link {
   display: block;
@@ -1085,9 +925,9 @@ body {
   transform: scale(1);
 }
 .restaurant-card__favorite .fa-solid {
-  background: linear-gradient(0deg, #9356DC, #FF79DA);
+  background: linear-gradient(0deg, #FF79DA, #9356DC);
+  background-clip: text;
   -webkit-background-clip: text;
-          background-clip: text;
   color: transparent;
   opacity: 0;
   transform: scale(0);
@@ -1107,4 +947,92 @@ body {
 .restaurant-card__checkbox:checked + .restaurant-card__favorite .fa-solid {
   opacity: 1;
   transform: scale(1);
+}
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.menu-item__toggle {
+  display: none;
+}
+.menu-item__toggle:checked + .menu-item__label .menu-item__check {
+  transform: translateX(0);
+}
+.menu-item__toggle:checked + .menu-item__label .menu-item__content {
+  max-width: calc(100% - 59px - 40px - 13.5px);
+}
+.menu-item__toggle:checked + .menu-item__label .menu-item__title {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.menu-item__toggle:checked + .menu-item__label .menu-item__details {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.menu-item__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 69px;
+  cursor: pointer;
+  position: relative;
+}
+.menu-item__content {
+  padding: 13.5px 0 13.5px 13.5px;
+  flex: 1;
+  min-width: 0;
+  max-width: calc(100% - 40px - 13.5px);
+  transition: max-width 0.4s ease;
+  overflow: hidden;
+}
+.menu-item__title {
+  font-weight: 500;
+  font-size: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.menu-item__info-line {
+  display: flex;
+  justify-content: space-between;
+  min-width: 0;
+}
+.menu-item__details {
+  font-weight: 300;
+  font-size: 15px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.menu-item__price {
+  font-weight: 700;
+  font-size: 15px;
+  position: absolute;
+  left: -40px;
+  bottom: 13.5px;
+  flex-shrink: 0;
+}
+.menu-item__check {
+  position: relative;
+  width: 59px;
+  height: 100%;
+  background-color: #99E2D0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+  border-radius: 0 15px 15px 0;
+}
+.menu-item__check-icon {
+  color: white;
+  font-size: 20px;
 }/*# sourceMappingURL=main.css.map */

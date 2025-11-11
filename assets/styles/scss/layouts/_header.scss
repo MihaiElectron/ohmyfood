@@ -1,51 +1,104 @@
 // layout/_header.scss
-// En-tête site (logo + navigation si applicable)
-// Structure BEM : .header
-// Dépend de : _variables.scss, _mixins.scss
-// Présent sur toutes les pages
+
+// =============================================================================
+// LAYOUT HEADER - EN-TÊTE DU SITE
+// =============================================================================
+// Description : Barre d'en-tête avec logo centré et bouton retour optionnel
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Logo Ohmyfood centré + bouton retour (pages internes uniquement)
+// Responsive : Hauteur et dimensions ajustées en desktop
+// Dépendances : mixins, variables
+// Utilisation : Présent sur toutes les pages du site
+// =============================================================================
 
 @use '../abstracts/mixins' as m;
 @use '../abstracts/variables' as v;
 
+
+// =============================================================================
+// BLOC HEADER
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : header
+// -----------------------------------------------------------------------------
+// Description : Conteneur principal de l'en-tête
+// Layout : Flexbox avec alignement vertical en bas (flex-end)
+// Background : Blanc pour contraste avec le contenu
+// Position : Relative pour positionnement absolu du bouton retour
+// Hauteur : 63px mobile, 96px desktop
+// ★ TECHNIQUE : align: flex-end positionne le logo légèrement plus haut
+//               en l'alignant sur le bas du conteneur (design intentionnel)
+// -----------------------------------------------------------------------------
 .header {
-    @include m.flex($align:flex-end);   
-    background-color: v.$color-white;
-    height: 63px;
-    position: relative;
+  @include m.flex($align: flex-end);
+  background-color: v.$color-white;
+  height: 63px;
+  position: relative;
 
+  // ---------------------------------------------------------------------------
+  // Élément : header__home-button
+  // ---------------------------------------------------------------------------
+  // Description : Bouton flèche de retour vers l'accueil (pages internes)
+  // Position : Absolue en haut à gauche du header
+  // Transform : scaleX(1.23) pour élargissement horizontal de l'icône
+  // Visibilité : Présent uniquement sur les pages menu (pas sur l'accueil)
+  // ★ TECHNIQUE : Le scaleX permet d'ajuster la largeur de la flèche sans changer sa hauteur
+  // ---------------------------------------------------------------------------
+  &__home-button {
+    position: absolute;
+    font-size: 16px;
+    transform: scaleX(1.23);
+    padding: 5.2px;
+    top: 17px;
+    left: 17px;
+    color: v.$color-grey;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : header__logo
+  // ---------------------------------------------------------------------------
+  // Description : Logo Ohmyfood cliquable (lien vers accueil)
+  // Layout : Flexbox pour centrage de l'image SVG/PNG
+  // Dimensions : 162x44px mobile, 200x34.2px desktop
+  // Position : Centré horizontalement via le flex du parent,
+  //            verticalement positionné légèrement haut via flex-end du parent
+  // ★ NOTE : Dimensions fixes pour maintenir les proportions du logo
+  // ---------------------------------------------------------------------------
+  &__logo {
+    @include m.flex();
+    width: 162px;
+    height: 44px;
+    padding-bottom: 10px;
+  }
+
+
+  // ===========================================================================
+  // RESPONSIVE - DESKTOP
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Desktop (1024px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Ajustements de taille et positionnement pour grands écrans
+  // Hauteur : Augmentée à 96px pour plus de présence visuelle
+  // Logo : Dimensions adaptées avec nouveau ratio pour affichage desktop
+  // Bouton retour : Repositionné verticalement pour meilleur centrage
+  // ★ NOTE : Le logo change légèrement de proportions en desktop (plus large)
+  // ---------------------------------------------------------------------------
+  @media screen and (min-width: 1024px) {
+    @include m.flex();
+    height: 96px;
+
+    // Bouton retour : Ajustement vertical pour centrage dans le header agrandi
     &__home-button {
-        position: absolute;
-        font-size: 16px;
-        transform: scaleX(1.23);
-        padding: 5.2px;
-        top: 17px;
-        left: 17px;
-        
-        top: 17px;
-        left: 17px;
-        color: v.$color-grey;
+      top: 33px;
     }
 
+    // Logo : Nouvelles dimensions pour affichage desktop
     &__logo {
-        @include m.flex();
-        width: 162px;
-        height: 44px;
-       
+      width: 200px;
+      height: 34.2px; // ★ PRÉCISION : Hauteur décimale pour respect exact du ratio
     }
-
-    @media screen and (min-width: 1024px) {
-        @include m.flex();
-        height: 96px;
-
-        &__home-button {
-            top: 33px;
-            
-        }
-
-        &__logo {
-            width: 200px;
-            height: 34.2px;
-        }
-      }
-
+  }
 }

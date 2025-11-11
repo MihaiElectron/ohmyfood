@@ -1,90 +1,198 @@
 // layouts/_functioning.scss
-@use '../abstracts/mixins'as m;
+
+// =============================================================================
+// LAYOUT FUNCTIONING - SECTION FONCTIONNEMENT
+// =============================================================================
+// Description : Section explicative du processus en 3 étapes numérotées
+// Méthodologie : BEM (Block Element Modifier)
+// Structure : Titre + Liste numérotée (1-2-3) avec icônes
+// Technique : Utilisation de counter-reset CSS pour numérotation automatique
+// Responsive : Liste verticale mobile, horizontale desktop
+// Dépendances : mixins, variables
+// Utilisation : pages/_home.scss
+// =============================================================================
+
+@use '../abstracts/mixins' as m;
 @use '../abstracts/variables' as v;
 
+
+// =============================================================================
+// BLOC FUNCTIONING
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Classe : functioning
+// -----------------------------------------------------------------------------
+// Description : Conteneur principal de la section fonctionnement
+// Background : Blanc pour contraste avec les sections adjacentes
+// Espacement : Padding vertical/horizontal pour aération
+// -----------------------------------------------------------------------------
 .functioning {
-    padding: 48px 20px;
-    background-color: #fff;
+  padding: 48px 20px;
+  background-color: #fff; // ★ TODO VARIABLE : Remplacer par v.$color-white
 
-    &__container {
-        max-width: 1024px;
-        margin: 0 auto;
-        width: 100%;
-        @include m.flex($direction: column, $align: flex-start);
-    }
-  
-    &__title {
-        margin-bottom: 26px;
-        font-size: v.$font-size-section-title;
-        font-weight: v.$font-weight-bold;
-    }
+  // ---------------------------------------------------------------------------
+  // Élément : functioning__container
+  // ---------------------------------------------------------------------------
+  // Description : Wrapper centré avec largeur maximale
+  // Max-width : 1024px pour limitation sur grands écrans
+  // Layout : Flexbox colonne pour empilement titre/liste
+  // ★ PATTERN DÉTECTÉ : Ce pattern pourrait utiliser le mixin container()
+  // ---------------------------------------------------------------------------
+  &__container {
+    max-width: 1024px;
+    margin: 0 auto;
+    width: 100%;
+    @include m.flex($direction: column, $align: flex-start);
+  }
 
-    &__list {
+  // ---------------------------------------------------------------------------
+  // Élément : functioning__title
+  // ---------------------------------------------------------------------------
+  // Description : Titre de section "Fonctionnement"
+  // Espacement : Margin-bottom pour séparation avec la liste
+  // Typographie : Taille section-title (24px), graisse bold (700)
+  // ---------------------------------------------------------------------------
+  &__title {
+    margin-bottom: 26px;
+    font-size: v.$font-size-section-title;
+    font-weight: v.$font-weight-bold;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Élément : functioning__list
+  // ---------------------------------------------------------------------------
+  // Description : Liste ordonnée des 3 étapes du fonctionnement
+  // Reset : list-style, padding, margin à 0 pour style personnalisé
+  // Counter : counter-reset pour génération automatique des numéros (non utilisé ici)
+  // Layout : Colonne mobile, rangée desktop
+  // Gap : 25px mobile pour espacement vertical entre les étapes
+  // ★ NOTE : counter-reset déclaré mais non utilisé (numéros en HTML)
+  // ---------------------------------------------------------------------------
+  &__list {
     @include m.flex($direction: column, $align: center);
     width: 100%;
     gap: 25px;
     list-style: none;
     padding: 0;
     margin: 0;
-    counter-reset: functioning-counter;
-    }
+    counter-reset: functioning-counter; // ★ INFO : Déclaré mais non exploité actuellement
+  }
 
-    &__item {
+  // ---------------------------------------------------------------------------
+  // Élément : functioning__item
+  // ---------------------------------------------------------------------------
+  // Description : Carte individuelle d'une étape (Choisissez/Composez/Dégustez)
+  // Position : Relative pour positionnement absolu du numéro
+  // Layout : Flexbox horizontal pour icône + texte
+  // Apparence : Fond gris clair, coins arrondis, ombre portée
+  // Width : 95% mobile pour débordement du numéro à gauche
+  // Shadow : Ombre légère pour effet de profondeur
+  // ★ TODO MIXIN : box-shadow répétée (même valeur que dans _card.scss)
+  // ---------------------------------------------------------------------------
+  &__item {
     @include m.flex($justify: flex-start, $align: flex-end);
     position: relative;
     width: 95%;
-    padding: 26.2px 33.47px;
-    background-color: #F6F6F6;
-    border-radius: 20px;
-    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+    padding: 26.2px 33.47px; // ★ PRÉCISION : Valeurs décimales pour alignement pixel-perfect
+    background-color: #F6F6F6; // ★ TODO VARIABLE : Utiliser v.$color-bg
+    border-radius: 20px; // ★ TODO VARIABLE : Créer $border-radius-card ou similaire
+    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15); // ★ TODO MIXIN : shadow-medium
     gap: 27px;
-    }
+  }
 
-    &__number {
+  // ---------------------------------------------------------------------------
+  // Élément : functioning__number
+  // ---------------------------------------------------------------------------
+  // Description : Badge circulaire numéroté (1, 2, 3) à gauche de la carte
+  // Position : Absolue, décalée de -12px pour déborder sur la gauche
+  // Apparence : Cercle violet avec texte blanc centré
+  // Dimensions : 24x24px pour cercle parfait
+  // Technique : Flexbox pour centrage parfait du chiffre
+  // ---------------------------------------------------------------------------
+  &__number {
     @include m.flex();
     position: absolute;
     left: -12px;
     width: 24px;
     height: 24px;
-    background: v.$color-primary; // Violet
-    color: #fff;
+    background: v.$color-primary;
+    color: #fff; // ★ TODO VARIABLE : Remplacer par v.$color-white
     border-radius: 50%;
-    font-size: 14.18px;
+    font-size: 14.18px; // ★ PRÉCISION : Taille ajustée pour centrage visuel optimal
     font-weight: 500;
-    }
+  }
 
-    &__icon {
+  // ---------------------------------------------------------------------------
+  // Élément : functioning__icon
+  // ---------------------------------------------------------------------------
+  // Description : Icône FontAwesome illustrant l'étape
+  // Couleur : Gris par défaut, violet pour la 3ème étape (voir sélecteur spécifique)
+  // Taille : 20px pour équilibre avec le texte
+  // ---------------------------------------------------------------------------
+  &__icon {
     color: v.$color-grey-icon;
     font-size: 20px;
-    }
+  }
 
-    &__item:nth-child(3) &__icon {
-        color: v.$color-primary;
-      }
+  // ---------------------------------------------------------------------------
+  // Sélecteur spécifique : Icône de la 3ème étape
+  // ---------------------------------------------------------------------------
+  // Description : Mise en avant de l'icône de la dernière étape (Restaurant)
+  // Technique : nth-child(3) pour cibler le 3ème élément de liste
+  // Couleur : Violet (primary) pour attirer l'attention sur l'action finale
+  // ★ TECHNIQUE : Sélecteur imbriqué BEM pour style contextuel
+  // ---------------------------------------------------------------------------
+  &__item:nth-child(3) &__icon {
+    color: v.$color-primary;
+  }
 
-    &__text {
+  // ---------------------------------------------------------------------------
+  // Élément : functioning__text
+  // ---------------------------------------------------------------------------
+  // Description : Texte descriptif de l'étape
+  // Typographie : Taille button (16px), graisse medium (500)
+  // Line-height : 1 pour alignement précis avec l'icône
+  // Couleur : Noir pour lisibilité maximale
+  // ---------------------------------------------------------------------------
+  &__text {
     font-size: v.$font-size-button;
     font-weight: 500;
-    color: #000;
-    line-height: 1; // Assure un alignement précis
+    color: #000; // ★ TODO VARIABLE : Remplacer par v.$color-black
+    line-height: 1;
+  }
+
+
+  // ===========================================================================
+  // RESPONSIVE - DESKTOP
+  // ===========================================================================
+
+  // ---------------------------------------------------------------------------
+  // Breakpoint : Desktop (1024px et plus)
+  // ---------------------------------------------------------------------------
+  // Description : Transformation de la liste en disposition horizontale
+  // Layout : Les 3 étapes se positionnent côte à côte
+  // Ajustements : Espacement augmenté, items flex pour largeur égale
+  // ---------------------------------------------------------------------------
+  @media screen and (min-width: 1024px) {
+    padding: 50px;
+
+    // Liste : Passage en rangée horizontale avec gap augmenté
+    &__list {
+      margin-left: 12px; // ★ AJUSTEMENT : Compensation pour le débordement du premier numéro
+      flex-direction: row;
+      gap: 36.51px; // ★ PRÉCISION : Gap calculé pour espacement optimal desktop
     }
 
-    @media screen and (min-width: 1024px) {
-        padding: 50px;
-        
-        &__list {
-            margin-left: 12px;
-            flex-direction: row;
-            gap: 36.51px;
-        }
-        
-        &__item {
-            flex: 1;
-            width: auto;
-        }
-
-        &__title {
-            margin-bottom: 25px;
-        }
+    // Items : Flex 1 pour répartition égale de l'espace disponible
+    &__item {
+      flex: 1;
+      width: auto; // Override du 95% mobile
     }
+
+    // Titre : Ajustement du margin-bottom pour cohérence desktop
+    &__title {
+      margin-bottom: 25px;
+    }
+  }
 }

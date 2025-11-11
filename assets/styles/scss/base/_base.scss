@@ -1,13 +1,36 @@
 // base/_base.scss
-// Styles globaux HTML/body + configuration font-smoothing
-// Applique font-family et color par défaut
-// Dépend de : _variables.scss
-// Chargé après _reset.scss
 
-@use '../abstracts/variables';
+// =============================================================================
+// STYLES GLOBAUX DE BASE
+// =============================================================================
+// Description : Configuration globale HTML/body et optimisations d'affichage
+// Application : Font-family par défaut, couleurs de fond, reset des marges
+// Ordre de chargement : Après _reset.scss dans main.scss
+// Dépendances : variables
+// =============================================================================
 
+@use '../abstracts/variables' as v;
+
+
+// =============================================================================
+// ÉLÉMENT BODY
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Élément : body
+// -----------------------------------------------------------------------------
+// Description : Configuration de base du document
+// Margin : 0 pour suppression des marges navigateur
+// Font-family : Police principale du design system
+// Background-color : Couleur de fond par défaut
+// ★ OPTIMISATION : Font-smoothing pour améliorer le rendu des polices
+// -----------------------------------------------------------------------------
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: variables.$color-bg; 
+  font-family: v.$font-family-primary;
+  background-color: v.$color-bg;
+  
+  // Amélioration du rendu des polices (optionnel)
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
