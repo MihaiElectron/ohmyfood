@@ -148,7 +148,6 @@
 }
 
 // État coché : Favori activé
-// ★ ERREUR : Ce bloc est dupliqué deux fois (identique)
 .restaurant__checkbox:checked + .restaurant__favorite {
   .fa-regular {
     opacity: 0;
@@ -177,7 +176,7 @@
   display: flex; 
   flex-direction: column;
   gap: 12px;
-
+   
   // ---------------------------------------------------------------------------
   // Élément : menu-section__items
   // ---------------------------------------------------------------------------
@@ -228,6 +227,33 @@
     width: 40px;
     height: 3px;
     background-color: v.$color-tertiary;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Animation : slideInLeft
+// -----------------------------------------------------------------------------
+// Description : Animation d’entrée glissante depuis la droite
+// -----------------------------------------------------------------------------
+.menu-item {
+  @for $i from 1 through 20 {
+  // Cible le label associé à l'input #platX
+    #plat#{$i} + label {
+      opacity: 0;
+      animation: slideInLeft 1s ease-out forwards;
+      animation-delay: #{($i - 1) * 0.4}s;
+    }
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(320px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 

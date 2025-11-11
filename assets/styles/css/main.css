@@ -53,7 +53,6 @@ body {
 .header__home-button {
   position: absolute;
   font-size: 16px;
-  transform: scaleX(1.23);
   padding: 5.2px;
   top: 17px;
   left: 17px;
@@ -596,6 +595,117 @@ body {
   background-color: #99E2D0;
 }
 
+.menu-item #plat1 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 0s;
+}
+.menu-item #plat2 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 0.4s;
+}
+.menu-item #plat3 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 0.8s;
+}
+.menu-item #plat4 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 1.2s;
+}
+.menu-item #plat5 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 1.6s;
+}
+.menu-item #plat6 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 2s;
+}
+.menu-item #plat7 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 2.4s;
+}
+.menu-item #plat8 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 2.8s;
+}
+.menu-item #plat9 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 3.2s;
+}
+.menu-item #plat10 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 3.6s;
+}
+.menu-item #plat11 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 4s;
+}
+.menu-item #plat12 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 4.4s;
+}
+.menu-item #plat13 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 4.8s;
+}
+.menu-item #plat14 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 5.2s;
+}
+.menu-item #plat15 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 5.6s;
+}
+.menu-item #plat16 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 6s;
+}
+.menu-item #plat17 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 6.4s;
+}
+.menu-item #plat18 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 6.8s;
+}
+.menu-item #plat19 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 7.2s;
+}
+.menu-item #plat20 + label {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 7.6s;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(320px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 .menu-container {
   display: flex;
   justify-content: center;
@@ -881,6 +991,7 @@ body {
   font-size: 14px;
   font-weight: 500;
   padding: 6px 12px;
+  border-radius: 2px;
 }
 .restaurant-card__info {
   padding: 16px 20px;
