@@ -62,7 +62,7 @@
 
     // Image du restaurant
     // Object-fit : cover pour remplissage sans déformation
-    img {
+    &__img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -154,7 +154,7 @@
   // ---------------------------------------------------------------------------
   &__favorite {
     position: absolute;
-    bottom: calc(33px - 21px / 2); // ★ CALCUL : Centre vertical à 33px du bas (icône 21px de haut)
+    bottom: calc(33px - 22px / 2); // ★ CALCUL : Centre vertical à 33px du bas (icône 21px de haut)
     right: calc(33px - 22px / 2);  // ★ CALCUL : Centre horizontal à 33px de la droite (icône 22px de large)
     width: 22px;
     height: 22px;
@@ -162,7 +162,7 @@
     cursor: pointer;
 
     // Icônes FontAwesome superposées
-    i {
+    .fa-heart {
       position: absolute;
       top: 0;
       left: 0;
